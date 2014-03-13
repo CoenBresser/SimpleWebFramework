@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+  <meta charset="utf-8">
+  <title>Joke's schilderijen</title>
+  <!-- TODO: i.o. reset use and fix bootstrap: link rel="stylesheet" href="css/bootstrap.min.css"/ -->
+  <link rel="stylesheet" href="css/reset.css"/>
+  <link rel="stylesheet" href="css/app.css"/>
+</head>
+<body>
+
+  <header>
+    <h1>Joke Bresser-Aarsen</h1>
+    <div class="loginIndicator" title="Inloggen" ng-controller="loginController"></div>
+  </header>
+  
+  <main ng-view ></main>
+  
+  <footer>
+    <div class="copyrightIndicator" title="Over deze site"></div>
+  </footer>
+
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+  -->
+  <script src="lib/angular/angular.js"></script>
+  <script src="lib/angular/angular-resource.js"></script>
+  <script src="lib/angular/angular-route.js"></script>
+  <script src="lib/angular/angular-sanitize.js"></script>
+  <!-- script src="lib/angular/angular-animate.js"></script -->
+  <script src="js/app.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/controllers.js"></script>
+  <script src="js/filters.js"></script>
+  <script src="js/directives.js"></script>
+</body>
+</html>

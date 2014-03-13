@@ -1,0 +1,10 @@
+[ 
+  {
+    "id": "contact/contact",
+    "width": "290",
+    "height": "440",
+    "horizontalPos": "0",
+    "verticalPos": "0",
+    "htmlContent": "<h2>Contact</h2><p>Vul onderstaand formulier in en ik neem zo spoedig mogelijk contact met u op.</p><!-- form novalidate --><input type='text' name='senderName' id='name' placeholder='Uw naam' style='width:100%;' /><input type='email' name='senderEmail' id='email' placeholder='Uw e-mailadres' style='width:100%;' /><textarea name='message' id='message' placeholder='Uw bericht' style='width:100%; height:100px;' ></textarea><img src='services/captcha.php' title='Klik voor een nieuw plaatje' id='captcha' /><input name='captcha-code' type='text' id='captcha-code' placeholder='De tekst in de figuur'/><!-- /form -->"
+  }
+]

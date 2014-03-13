@@ -1,0 +1,12 @@
+{
+  "name": "Joke's Schilderijen",
+  "description": "Project voor website Joke Bresser-Aarsen",
+  "repository": "https://github.com/CoenBresser/SimpleWebFramework.git",
+  "devDependencies": {
+    "phantomjs" : "~1.9",
+    "karma" : "~0.10",
+    "karma-junit-reporter" : "~0.1",
+    "karma-jasmine" : "~0.1",
+    "protractor" : "~0.17.0"
+  }
+}

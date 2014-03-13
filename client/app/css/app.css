@@ -1,0 +1,213 @@
+/* app css stylesheet http://colorschemedesigner.com/#4c61Vw0w0w0w0 */
+section {
+  position: relative;
+}
+
+section>article {
+  float: left;
+  position: absolute;
+  overflow: hidden;
+}
+
+section>div.toolBox {
+  position: absolute;
+  right: -50px;
+  width: 50px;
+  height: 100%;
+}
+
+body {
+  font-family: Verdana, sans-serif;
+  height: 100%;
+  background-color: #1D0772;
+}
+
+header, section, footer {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+footer {
+  width: 750px;
+}
+
+header {
+  text-align: center;
+  margin-top: 70px;
+  margin-bottom: 30px;
+  background-image: url('../img/header.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+header h1 {
+  visibility: hidden;
+}
+
+@font-face {
+	font-family: headerFont;
+	src: url('Jellyka_Estrya_Handwriting.ttf'), url('Jellyka_Estrya_Handwriting.eot') format("opentype"); /* IE */
+}
+
+h1 {
+  font-family: headerFont;
+  font-size: 10em;
+  color: black;
+  padding-left: 15px;
+  margin-top: -40px;
+  margin-bottom: -50px;
+  opacity: 0.7;
+  filter: alpha(opacity=70); /* For IE8 and earlier */
+}
+
+@font-face {
+	font-family: "Lucida Calligraphy";
+	src: url('LCALLIG.TTF'), url('LCALLIG.eot') format("opentype"); /* IE */
+}
+
+
+article {
+  background-color: #3515B0;
+  position: absolute;
+}
+
+/* Apply to all direct children */
+article>* {
+  padding: 5px 5px 5px 5px;
+  color: white;
+  font-size: 0.8em;
+  opacity: 0.6;
+  filter: alpha(opacity=60); /* For IE8 and earlier */  
+}
+
+article>h2 {
+  font-family: "Lucida Calligraphy", Lucida, Verdana, sans-serif;
+  font-size: 1em;
+  font-weight: bold;
+  background-color: #48036F;
+}
+
+article>p {
+}
+
+article>ul {
+  list-style: disc;
+}
+
+article>ul>li {
+  list-style-position: outside;
+  margin-left: 20px;
+}
+
+section.admin {
+  border: 1px solid #3515B0;
+  margin-bottom: 20px;
+}
+
+/* Navigation, login and copyright */
+.navBack {
+  width: 50px;
+  height: 50px;
+  background:url('../img/icons-sprite.png') -174px -619px;
+}
+
+.copyrightIndicator {
+  background:url('../img/icons-sprite-small.png') -171px -2886px;
+  width: 25px;
+  height: 25px;
+  position: fixed;
+  right: 5px;
+  bottom: 5px;
+}
+
+.loginIndicator {
+  background:url('../img/icons-sprite-small.png') -59px -842px;
+  width: 25px;
+  height: 25px;
+  position: fixed;
+  right: 5px;
+  top: 5px;
+}
+
+.loginIndicator.loggedIn>p {
+  display: block !important;
+  text-align: right;
+  margin-right: 25px;
+  margin-top: 5px;
+  float: right;
+}
+
+/* Gallery styles */
+.arrow {
+    cursor: pointer;
+    display: block;
+    height: 64px;
+    margin-top: -35px;
+    outline: medium none;
+    position: absolute;
+    top: 50%;
+    width: 64px;
+    z-index: 5;
+}
+.arrow.prev {
+    background-image: url("../img/prev.png");
+    left: 20px;
+    opacity: 0.2;
+    transition: all 0.2s linear 0s;
+}
+.arrow.next {
+    background-image: url("../img/next.png");
+    opacity: 0.2;
+    right: 20px;
+    transition: all 0.2s linear 0s;
+}
+.arrow.prev:hover{
+    opacity:1;
+}
+.arrow.next:hover{
+    opacity:1;
+}
+
+.nav {
+    top: 460px;
+    display: block;
+    left: 0;
+    margin: 0 auto;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    width: 100%;
+    z-index: 5;
+}
+.nav li {
+    border: 2px solid #AAAAAA;
+    cursor: pointer;
+    display: inline-block;
+    margin: 4px;
+    position: relative;
+    opacity: 0.5;
+    bottom: 0;
+}
+.nav li:hover {
+    opacity: 1;
+}
+.nav li img{
+  max-width: 40px;
+}
+.nav li.active {
+    border: 2px solid #FFFFFF;
+    opacity: 1;
+}
+.slider {
+    height: 100%;
+    margin: 20px auto;
+    position: relative;
+    width: 100%;
+}
+.slide {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
