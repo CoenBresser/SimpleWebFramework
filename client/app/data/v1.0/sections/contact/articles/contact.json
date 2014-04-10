@@ -1,0 +1,15 @@
+<h2>Contact</h2>
+<p>Vul onderstaand formulier in en ik neem zo spoedig mogelijk contact met u op.</p>
+<form name="feedbackForm" ng-controller="feedbackFormController" ng-submit="submit()" >
+  <p ng-show="!submitted">
+    <input required ng-model="fdata.name" type="text" name="senderName" placeholder="Uw naam" style="width: 100%;" />
+    <input required ng-model="fdata.email" type="email" name="senderEmail" placeholder="Uw e-mailadres" style="width: 100%;" />
+    <textarea required ng-model="fdata.message" name="message" placeholder="Uw bericht" style="width:100%; height:100px;" ></textarea>
+    <img ng-src="http://www.joke-schilderijen.nl/services/captcha.php?rnd={{count}}" ng-click="count = count + 1" ng-init="count=0" title="Klik voor een nieuw plaatje" />
+    <input required ng-model="fdata.captcha" type="text" name="captcha-code" placeholder="De bovenstaande tekst" style="width: 100%;" />
+    <input type="submit" value="Verstuur" ng-disabled="!feedbackForm.$valid" />
+  </p>
+  <p ng-show="submitted">
+    Dank u voor uw feedback!
+  </p>
+</form>

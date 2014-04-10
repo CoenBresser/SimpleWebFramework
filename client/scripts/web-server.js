@@ -150,10 +150,30 @@ StaticServlet.prototype.handlePostRequest = function(req, res) {
   });
   req.on('end', function () {
 
-    util.puts(body);
-    //var POST = qs.parse(body);
+    var POST = JSON.parse(body);
     // use POST
-    res.writeHead(200, "OK", {'Content-Type': 'text/plain'});
+    // Switch on captcha value to create test responses
+    if (POST.captcha === "0") { 
+      res.writeHead(500, "INTERNAL SERVER ERROR", {'Content-Type': 'application/json'});
+      res.write('{"errors": [{"message": "Sending email failed"}]}');
+    } else if (POST.captcha === "1") {
+      res.writeHead(400, "BAD REQUEST", {'Content-Type': 'application/json'});
+      res.write('{"errors": [{"field": "captcha", "message": "Mismatch"}]}');
+    } else if (POST.captcha === "2") {
+      res.writeHead(400, "BAD REQUEST", {'Content-Type': 'application/json'});
+      res.write('{"errors": [{"field": "name", "message": "No name"}]}');
+    } else if (POST.captcha === "3") {
+      res.writeHead(400, "BAD REQUEST", {'Content-Type': 'application/json'});
+      res.write('{"errors": [{"field": "email", "message": "No email"}]}');
+    } else if (POST.captcha === "4") {
+      res.writeHead(400, "BAD REQUEST", {'Content-Type': 'application/json'});
+      res.write('{"errors": [{"field": "email", "message": "Bad email"}]}');
+    } else if (POST.captcha === "5") {
+      res.writeHead(400, "BAD REQUEST", {'Content-Type': 'application/json'});
+      res.write('{"errors": [{"field": "message", "message": "No message"}]}');
+    } else {
+      res.writeHead(200, "OK", {'Content-Type': 'application/json'});
+    }
     res.end();
   });
 }

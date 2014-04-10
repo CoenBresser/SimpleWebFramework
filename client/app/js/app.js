@@ -12,9 +12,9 @@ angular.module('myApp', [
   'ngSanitize' /*,
   'ngAnimate' */
 ]).
-config(['$routeProvider', function($routeProvider) {
+config(['$routeProvider', '$sceDelegateProvider', function($routeProvider, $sceDelegateProvider) {
   $routeProvider.when('/admin', {templateUrl: 'partials/admin.html', controller: 'AdminController'});
   $routeProvider.when('/:sectionId/:galleryId', {templateUrl: 'partials/gallery.html', controller: 'GalleryController'});
   $routeProvider.when('/:sectionId', {templateUrl: 'partials/section.html', controller: 'MainController'});
-  $routeProvider.otherwise({redirectTo: '/welcome'}); /* always the main section */
+  $routeProvider.otherwise({redirectTo: '/welcome'}); // always the main section 
 }]);

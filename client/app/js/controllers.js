@@ -36,6 +36,27 @@ angular.module('myApp.controllers', []).
         $scope.article.$save({sectionId:$scope.section.id, articleId: $scope.article.id});
       };
     }]).
+  controller('feedbackFormController', ['$scope', '$http',
+    function($scope, $http) {
+      $scope.submitted = false;
+      
+      $scope.fdata = {
+        name: 'a',
+        email: 'b@c.com',
+        message: 'd',
+        captcha: 'e'
+      };
+      
+      $scope.submit = function () {
+        console.debug($scope.fdata);
+        $http.post('services/feedback.php', $scope.fdata)
+          .success(function(){
+            // Check for response
+            
+            $scope.submitted = true;
+          });
+      };
+    }]).
     
   // We've got a section id from ngRoute, go and get the data
   controller('MainController', ['$scope', 'Section', '$routeParams', 
