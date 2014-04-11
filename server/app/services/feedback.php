@@ -3,7 +3,7 @@ if (session_id() == '') session_start();
 checkAndFixResponseCodeExistence();
 
 // Check if we have a random number set by captcha, if not, everything else is useless
-if (!isset($_SESSION['captcha_random_number'])) {
+if (!isset($_SESSION['security_code'])) {
   // send an error
   http_response_code(400);
   echo('{"errors": ["service": "No valid session!"]}');
@@ -24,7 +24,7 @@ $respData = array();
 checkFieldExistenceAndNotEmpty($objData, "name", $respData);
 checkFieldExistenceAndNotEmpty($objData, "email", $respData);
 checkFieldExistenceAndNotEmpty($objData, "message", $respData);
-checkFieldExistenceAndNotEmpty($objData, "captcha-code", $respData);
+checkFieldExistenceAndNotEmpty($objData, "captcha", $respData);
 
 if (count($respData) > 0) {
   // Bad request
@@ -35,20 +35,20 @@ if (count($respData) > 0) {
 unset($respData);
 
 // Check the captcha value
-if ($objData["captcha-code"] != $_SESSION['captcha_random_number']) {
+if ($objData["captcha"] != $_SESSION['security_code']) {
   // Bad request
   http_response_code(400);
-  echo('{"response": "error", "errors": [{"field": "captcha-code", "message": "Mismatch!"}]}');
+  echo('{"response": "error", "errors": [{"field": "captcha", "message": "Mismatch!"}]}');
   die();
 }
 
-// Everything oke now, send the email
+// Everything okay now, send the email
 $headers = 'From: ' . $objData['email'] . "\r\n" . 'X-Mailer: PHP/' . phpversion();
-if( mail('REPLACEME', 
-          "Feedback van Joke's Schilderijen.nl",
+if( mail('REPLACE_ME', 
+          "Feedback via Joke's Schilderijen.nl van " . $objData['name'],
           $objData['message'], $headers) ) {
   echo ('{"response": "ok"}');
-else {
+} else {
   echo ('{"response": "failed"}');
 }
 

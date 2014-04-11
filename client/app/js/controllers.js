@@ -40,13 +40,6 @@ angular.module('myApp.controllers', []).
     function($scope, $http) {
       $scope.submitted = false;
       
-      $scope.fdata = {
-        name: 'a',
-        email: 'b@c.com',
-        message: 'd',
-        captcha: 'e'
-      };
-      
       $scope.submit = function () {
         console.debug($scope.fdata);
         $http.post('services/feedback.php', $scope.fdata)
