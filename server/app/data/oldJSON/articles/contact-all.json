@@ -1,0 +1,10 @@
+[ 
+  {
+    "id": "contact/contact",
+    "width": "290",
+    "height": "440",
+    "horizontalPos": "0",
+    "verticalPos": "0",
+    "partialUrl": "data/v1.0/partials/contactForm"
+  }
+]

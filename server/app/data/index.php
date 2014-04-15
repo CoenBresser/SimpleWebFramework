@@ -95,53 +95,25 @@ EOT;
     echo $template;
 });
 
-$app->get('/sections', function () {
-    include 'oldJSON/sections/all.json';
-});
-$app->get('/sections/:sectionId', function ($sectionId) use ($app) {
-  // old way, check on ending with .json
-  getOldFile('oldJSON/sections/'.$sectionId, $app);
-});
+/**
+ * v0.1 interface
+ * Direct file interface. The file extention is part of the id
+ */
+include 'Interfaces/v0.1.php'; 
 
+/**
+ * v1.0 interface
+ * Read only interface with correct indexation
+ */
+include 'Interfaces/v1.0.php';
+
+/**
+ * v2.0 interface
+ * Read/write interface
+ */
+
+ 
 /*
-$app->get('/articles', function () use ($app) {
-    $sectionId = $app->request->get('sectionId');
-    if ($sectionId) {
-      getOldFile('oldJSON/articles/'.$sectionId.'-all.json', $app);
-    } else {
-      // echo 'This gets all articles ';
-      $app->notFound();
-    }
-});*/
-
-// Old direct index
-$app->get('/articles/:articleId', function ($articleId) use ($app) {
-    getOldFile('oldJSON/articles/'.$articleId, $app);
-});
-
-$app->get('/works', function () {
-    //echo 'This gets all the works ';
-    $app->notFound();
-});
-$app->get('/works/:workGroup', function ($workGroup) use ($app) {
-    $category = $app->request->get('category');
-    if ($category) {
-      getOldFile('oldJSON/works/'.$workGroup.'-'.$category.'.json', $app);
-      echo 'This gets all the works in group ' . $workGroup . ' with category ' . $category;
-    } else {
-      // Old direct index, check on endswith .json later on
-      getOldFile('oldJSON/works/'.$workGroup, $app);
-    }
-});
-
-function getOldFile($file, $app) {
-  if (file_exists($file)) {
-    include $file;
-  } else {
-    $app->notFound();
-  }
-}
-
 // POST route
 $app->post(
     '/post',
@@ -170,7 +142,7 @@ $app->delete(
         echo 'This is a DELETE route';
     }
 );
-
+*/
 /**
  * Step 4: Run the Slim application
  *
@@ -178,3 +150,4 @@ $app->delete(
  * and returns the HTTP response to the HTTP client.
  */
 $app->run();
+?>

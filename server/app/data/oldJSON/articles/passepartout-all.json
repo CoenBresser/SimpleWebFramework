@@ -13,7 +13,14 @@
     "height": "140",
     "horizontalPos": "0",
     "verticalPos": "0",
-    "htmlContent": "<h2>Hil Medema</h2>"
+    "htmlContent": "<h2>Hil Medema</h2>",
+    "link": "http://www.hilmedema.nl/",
+    "style" : {
+      "background-image": "url('img/hilm.jpg')",
+      "background-repeat": "no-repeat",
+      "background-position": "bottom",
+      "background-size": "cover"
+    }
   },
   {
     "id": "passepartout/rietBeijer",
