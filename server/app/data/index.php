@@ -108,6 +108,12 @@ include 'Interfaces/v0.1.php';
 include 'Interfaces/v1.0.php';
 
 /**
+ * v1.1 interface
+ * Read only interface with correct indexation and implementation of partials for articles
+ */
+include 'Interfaces/v1.1.php';
+
+/**
  * v2.0 interface
  * Read/write interface
  */
