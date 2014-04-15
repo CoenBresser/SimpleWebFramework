@@ -1,12 +1,9 @@
 <section ng-repeat="section in sections" id="{{section.id}}" style="width: {{section.width}}px; height: {{section.height}}px; " class="admin" ng-controller="AdminSectionController">
-    <article ng-repeat="article in articles" 
-        id="{{article.id}}" 
-        style="width: {{article.width}}px; height: {{article.height}}px; left: {{article.horizontalPos}}px; top: {{article.verticalPos}}px; {{(article.link) ? 'cursor: pointer; ' : ''}}"
-        ng-style="{{article.style}}"
-        contenteditable 
-        strip-br="true"
-        ng-model="article.htmlContent"
-        ng-blur="saveArticle()"
-        ng-controller="AdminArticleController"></article>
+  <article ng-repeat="article in articles" 
+    id="{{article.id}}" 
+    style="width: {{article.width}}px; height: {{article.height}}px; left: {{article.horizontalPos}}px; top: {{article.verticalPos}}px; {{(article.link) ? 'cursor: pointer; ' : ''}}"
+    ng-include="article.partialUrl"
+    ng-style="{{article.style}}"
+    ng-controller="AdminArticleController"></article>
   <div class="toolBox" />
 </section>

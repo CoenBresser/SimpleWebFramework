@@ -110,6 +110,8 @@ StaticServlet.prototype.handleRequest = function(req, res) {
 }
 StaticServlet.prototype.handleGetRequest = function(req, res) {
   var self = this;
+  
+  // App specific: todo find out what I fixed here...
   var path = ('./' + req.url.pathname).replace('//','/').replace(/%(..)/g, function(match, hex){
     return String.fromCharCode(parseInt(hex, 16));
   });
@@ -119,8 +121,8 @@ StaticServlet.prototype.handleGetRequest = function(req, res) {
     return self.sendForbidden_(req, res, path);
 
   // App specific check
-  if (path.startsWith('./app/data/v1.0/')) {
-    util.puts('In v1.0 data directory, do a mapping.');
+  if (path.startsWith('./app/data/v1.')) {
+    util.puts('In v1.x data directory, do a mapping.');
     // The mapping is easy, add .json at the end
     if (req.url.query.category) {
       util.puts('Category: ' + req.url.query.category);

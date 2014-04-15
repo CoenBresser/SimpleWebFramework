@@ -1,25 +1,19 @@
-<section id="{{section.id}}" style="width: {{section.width}}px; height: {{section.height}}px; " >
-  <div class="container slider">
+<div class="container slider" ng-controller="GalleryController">
+  <img ng-repeat="work in works" 
+    class="slide" 
+    ng-swipe-right="showPrev()" 
+    ng-swipe-left="showNext()" 
+    ng-show="isActive($index)" 
+    ng-src="http://www.joke-schilderijen.nl/new/plugins/gallery/images/{{work.file}}" />
 
-    <!-- enumerate all photos -->
-    <img ng-repeat="work in works" 
-      class="slide" 
-      ng-swipe-right="showPrev()" 
-      ng-swipe-left="showNext()" 
-      ng-show="isActive($index)" 
-      ng-src="http://www.joke-schilderijen.nl/new/plugins/gallery/images/{{work.file}}" />
+  <!-- prev / next controls -->
+  <a class="arrow prev" ng-click="showPrev()"></a>
+  <a class="arrow next" ng-click="showNext()"></a>
 
-    <!-- prev / next controls -->
-    <a class="arrow prev" ng-click="showPrev()"></a>
-    <a class="arrow next" ng-click="showNext()"></a>
-
-    <!-- extra navigation controls -->
-    <ul class="nav">
-        <li ng-repeat="work in works" ng-class="{'active':isActive($index)}">
-            <img ng-src="http://www.joke-schilderijen.nl/new/plugins/gallery/images/{{work.file}}" alt="{{work.description}}" title="{{work.description}}" ng-click="showWork($index);" />
-        </li>
-    </ul>
-
-  </div>
-  <div class="toolBox" />
-</section>
+  <!-- extra navigation controls -->
+  <ul class="nav">
+    <li ng-repeat="work in works" ng-class="{'active':isActive($index)}">
+      <img ng-src="http://www.joke-schilderijen.nl/new/plugins/gallery/images/{{work.file}}" alt="{{work.description}}" title="{{work.description}}" ng-click="showWork($index);" />
+    </li>
+  </ul>
+</div>

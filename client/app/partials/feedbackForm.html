@@ -1,6 +1,6 @@
 <h2>{{article.title}}</h2>
-<p>Vul onderstaand formulier in en ik neem zo spoedig mogelijk contact met u op.</p>
 <form name="feedbackForm" ng-controller="feedbackFormController" ng-submit="submit()" >
+  <p ng-show="!submitted">Vul onderstaand formulier in en ik neem zo spoedig mogelijk contact met u op.</p>
   <p ng-show="!submitted">
     <input required ng-model="fdata.name" type="text" name="senderName" placeholder="Uw naam" style="width: 100%;" />
     <input required ng-model="fdata.email" type="email" name="senderEmail" placeholder="Uw e-mailadres" style="width: 100%;" />

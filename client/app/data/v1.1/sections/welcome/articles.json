@@ -1,0 +1,66 @@
+[ 
+  {
+    "id": "welcome-aboutMe",
+    "width": "290",
+    "height": "140",
+    "horizontalPos": "300",
+    "verticalPos": "300",
+    "title": "Over mij",
+    "htmlContent": "",
+    "link": "aboutMe",
+    "style" : {
+      "background-image": "url('img/joke_front.JPG')",
+      "background-repeat": "no-repeat",
+      "background-position": "bottom",
+      "background-size": "cover"
+    }
+  },
+  {
+    "id": "welcome-glassObjects",
+    "width": "290",
+    "height": "290",
+    "horizontalPos": "600",
+    "verticalPos": "0",
+    "title": "Glaswerken",
+    "htmlContent": "",
+    "link": "glassObjects",
+    "style" : {
+      "background-image": "url('img/schaal.jpg')",
+      "background-repeat": "no-repeat",
+      "background-position": "bottom",
+      "background-size": "cover"
+    }
+  },
+  {
+    "id": "welcome-paintings",
+    "width": "290",
+    "height": "290",
+    "horizontalPos": "0",
+    "verticalPos": "0",
+    "title": "Schilderijen",
+    "htmlContent": "",
+    "link": "paintings",
+    "style" : {
+      "background-image": "url('img/zwanger_web.jpg')",
+      "background-repeat": "no-repeat",
+      "background-position": "bottom",
+      "background-size": "cover"
+    }
+  },
+  {
+    "id": "welcome-sculptures",
+    "width": "290",
+    "height": "290",
+    "horizontalPos": "300",
+    "verticalPos": "0",
+    "link": "sculptures",
+    "title": "Beeldhouwwerken",
+    "htmlContent": "",
+    "style" : {
+      "background-image": "url('img/samen.JPG')",
+      "background-repeat": "no-repeat",
+      "background-position": "bottom",
+      "background-size": "cover"
+    }
+  }
+]

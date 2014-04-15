@@ -8,16 +8,17 @@ if (typeof String.prototype.startsWith != 'function') {
   };
 }
 
-/* Controllers */
+/* Admin controllers */
 
 angular.module('myApp.controllers', []).
   controller('loginController', ['$scope', 'Section',
     function($scope, Section) {
-      $scope.sections = Section.query();
+      //$scope.sections = Section.query();
     }]).
   // admin starting point, get al sections
   controller('AdminController', ['$scope', 'Section',
     function($scope, Section) {
+      // get a user
       $scope.sections = Section.query();
     }]).
   // admin section content controller
@@ -30,41 +31,38 @@ angular.module('myApp.controllers', []).
   controller('AdminArticleController', ['$scope', 'Section', 'Article', '$routeParams', '$location', '$window', '$element',
     function($scope, Section, Article, $routeParams, $location, $window, $element) {
       // We're in an article now
+      if (!$scope.article.partialUrl) {
+        $scope.article.partialUrl = "partials/basicArticle.html"
+      }
       
       $element.html($scope.article.htmlContent);
       $scope.saveArticle = function() {
         $scope.article.$save({sectionId:$scope.section.id, articleId: $scope.article.id});
       };
     }]).
-  controller('feedbackFormController', ['$scope', '$http',
-    function($scope, $http) {
-      $scope.submitted = false;
-      
-      $scope.submit = function () {
-        console.debug($scope.fdata);
-        $http.post('services/feedback.php', $scope.fdata)
-          .success(function(){
-            // Check for response
-            
-            $scope.submitted = true;
-          });
-      };
-    }]).
     
+/* Normal controllers */
   // We've got a section id from ngRoute, go and get the data
   controller('MainController', ['$scope', 'Section', '$routeParams', 
     function($scope, Section, $routeParams) {
-      $scope.section = Section.get({sectionId: $routeParams.sectionId});
+      var sectionId = ($routeParams.galleryId) ? 'gallery' : $routeParams.sectionId;
+      $scope.section = Section.get({sectionId: sectionId});
     }]).
+    
   // Arrange the contents of the section
   controller('SectionController', ['$scope', 'Article', '$routeParams',
     function($scope, Article, $routeParams) {
-      // We're in a section now ($scope.section is available)
-      $scope.articles = Article.query({sectionId: $routeParams.sectionId});      
+      // Get the articles to build up the gallery
+      var sectionId = ($routeParams.galleryId) ? 'gallery' : $routeParams.sectionId;
+      $scope.articles = Article.query({sectionId: sectionId});
     }]).
-  controller('BasicArticleController', ['$scope', '$location', '$window',
+    
+  controller('ArticleController', ['$scope', '$location', '$window',
     function($scope, $location, $window) {
       // We're in an article now ($scope.article is available)
+      if (!$scope.article.partialUrl) {
+        $scope.article.partialUrl = "partials/basicArticle.html"
+      }
       
       $scope.handleClick = function() {
         if ($scope.article.link) {
@@ -78,9 +76,23 @@ angular.module('myApp.controllers', []).
         }
       };
     }]).
-  controller('GalleryController', ['$scope', 'Section', 'Works', '$routeParams', '$timeout', 
-    function($scope, Section, Works, $routeParams, $timeout) {
-      $scope.section = Section.get({sectionId: $routeParams.sectionId + '-gallery'});
+
+  controller('feedbackFormController', ['$scope', '$http',
+    function($scope, $http) {
+      $scope.submitted = false;
+      
+      $scope.submit = function () {
+        console.debug($scope.fdata);
+        $http.post('services/feedback.php', $scope.fdata)
+          .success(function(){
+            // TODO: Check for response (errors are responded as errors by the service)
+            $scope.submitted = true;
+          });
+      };
+    }]).
+
+  controller('GalleryController', ['$scope', 'Works', '$routeParams', '$timeout', 
+    function($scope, Works, $routeParams, $timeout) {
       
       // Get the works, check for magic word 'all'
       var queryParams = {workGroup: $routeParams.sectionId};

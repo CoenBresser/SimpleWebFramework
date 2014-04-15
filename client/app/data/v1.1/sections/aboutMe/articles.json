@@ -1,0 +1,32 @@
+[ 
+ {
+  "id": "aboutMe/aboutMe",
+  "width": "440",
+  "height": "290",
+  "horizontalPos": "0",
+  "verticalPos": "0",
+  "title": "Joke Bresser-Aarsen",
+  "htmlContent": "<p>Ooit ben ik begonnen met realistisch tekenen en zo goed mogelijk weergeven wat ik gezien had. Nu heb ik meer aandacht voor het weergeven van gevoel en emoties. Tekenen was vroeger een manier om 7 kinderen zoet te houden. Samen met nog 5 zusjes en 1 broer werd er dus in ons gezin heel veel getekend en geknutseld. Mijn allereerste schilderijtje dateert van de basisschool. Tijdens mijn opleiding in het onderwijs werd veel aandacht besteed aan de ontwikkeling van de eigen creatieve vaardigheden. In Soest heb ik lessen gevolgd bij C3, voormalig Cultureel Centrum. Vervolg hierop was Modelschilderen in het atelier bij Ineke Talen. In 2000 heb ik met enkele leden uit deze schildergroep het collectief PassepARTout opgericht. Daarnaast ben ik begonnen met beeldhouwen. Tussendoor zijn er enkele acties geweest met glasblazen en glasfusen. Vanaf 1990 heb ik zeer regelmatig geexposeerd en naast al deze activiteiten geef ik workshops en schilderlessen. </p>"
+ },
+ {
+  "id": "aboutMe/passepartout",
+  "width": "290",
+  "height": "140",
+  "horizontalPos": "0",
+  "verticalPos": "300",
+  "link": "passepartout",
+  "title": "PassepARTout",
+  "htmlContent": ""
+ },
+ {
+  "id": "aboutMe/contact",
+  "width": "140",
+  "height": "140",
+  "horizontalPos": "450",
+  "verticalPos": "0",
+  "link": "contact",
+  "title": "Contact",
+  "htmlContent": "<p>Indien u vragen heeft kunt u contact met mij opnemen met het feedbackformulier.</p>"
+ }
+]
+

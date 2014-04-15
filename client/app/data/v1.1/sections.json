@@ -1,0 +1,10 @@
+[
+  { "id": "welcome", "width": "900", "height": "450", "type": "basic" },
+  { "id": "paintings", "width": "600", "height": "600", "type": "basic" },
+  { "id": "glassObjects", "width": "450", "height": "300", "type": "basic" },
+  { "id": "sculptures", "width": "450", "height": "300", "type": "basic" },
+  { "id": "aboutMe", "width": "600", "height": "450", "type": "basic" },
+  { "id": "passepartout", "width": "750", "height": "450", "type": "workgroupEntry" },
+  { "id": "contact", "width": "300", "height": "450", "type": "feedbackForm" },
+  { "id": "gallery", "width": "750", "height": "450", "type": "gallery" }
+]

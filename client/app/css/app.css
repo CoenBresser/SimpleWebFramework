@@ -76,8 +76,11 @@ article>* {
   padding: 5px 5px 5px 5px;
   color: white;
   font-size: 0.8em;
-  opacity: 0.6;
-  filter: alpha(opacity=60); /* For IE8 and earlier */  
+}
+
+/* fix the additional div in the basic articles */
+article>div>p, article>form>p {
+  padding: 5px 0px 5px 0px;
 }
 
 article>h2 {
@@ -85,6 +88,12 @@ article>h2 {
   font-size: 1em;
   font-weight: bold;
   background-color: #48036F;
+  opacity: 0.6;
+  filter: alpha(opacity=60); /* For IE8 and earlier */  
+}
+article>p, article>div>p, article>form>p {
+  opacity: 0.6;
+  filter: alpha(opacity=60); /* For IE8 and earlier */  
 }
 
 article>ul {
@@ -203,7 +212,7 @@ section.admin {
 }
 .slide {
     max-width: 100%;
-    max-height: 100%;
+    max-height: 400px;
     display: block;
     margin-left: auto;
     margin-right: auto;

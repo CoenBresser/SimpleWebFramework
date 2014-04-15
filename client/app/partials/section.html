@@ -1,19 +1,11 @@
 <section id="{{section.id}}" style="width: {{section.width}}px; height: {{section.height}}px; " ng-controller="SectionController" >
-    <article ng-repeat="article in articles" 
-        ng-if="article.htmlContent"
-        id="{{article.id}}" 
-        style="width: {{article.width}}px; height: {{article.height}}px; left: {{article.horizontalPos}}px; top: {{article.verticalPos}}px; {{(article.link) ? 'cursor: pointer; ' : ''}}"
-        ng-style="{{article.style}}"
-        ng-click="handleClick()" 
-        ng-bind-html="article.htmlContent"
-        ng-controller="BasicArticleController" ></article>
-    <article ng-repeat="article in articles" 
-        ng-if="article.partialUrl"
-        id="{{article.id}}" 
-        style="width: {{article.width}}px; height: {{article.height}}px; left: {{article.horizontalPos}}px; top: {{article.verticalPos}}px; {{(article.link) ? 'cursor: pointer; ' : ''}}"
-        ng-style="{{article.style}}"
-        ng-click="handleClick()" 
-        ng-include="article.partialUrl"
-        ng-controller="BasicArticleController" ></article>
+  <article ng-repeat="article in articles" 
+    id="{{article.id}}" 
+    style="width: {{article.width}}px; height: {{article.height}}px; left: {{article.horizontalPos}}px; top: {{article.verticalPos}}px; {{(article.link) ? 'cursor: pointer; ' : ''}}"
+    ng-style="{{article.style}}"
+    ng-class="{{article.class}}"
+    ng-click="handleClick()" 
+    ng-include="article.partialUrl"
+    ng-controller="ArticleController" ></article>
   <div class="toolBox" />
 </section>
