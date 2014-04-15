@@ -23,7 +23,7 @@ $app->get('/v1.1/works/:workGroup', function ($workGroup) use ($app) {
   if ($category) {
     getV11File('works/'.$workGroup.'-'.$category.'.json', $app);
   } else {
-    getV11File('works/'.$workGroup.'-all.json', $app);
+    getV11File('works/'.$workGroup.'.json', $app);
 }});
 
 function getV11File($file, $app) {
