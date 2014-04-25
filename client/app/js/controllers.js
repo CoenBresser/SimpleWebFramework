@@ -11,9 +11,15 @@ if (typeof String.prototype.startsWith != 'function') {
 /* Admin controllers */
 
 angular.module('myApp.controllers', []).
-  controller('loginController', ['$scope', 'Section',
-    function($scope, Section) {
-      //$scope.sections = Section.query();
+  controller('loginController', ['$scope', '$location',
+    function($scope, $location) {
+      $scope.handleClick = function() {
+        if (!$scope.user) {
+          $location.path('admin');
+        } else {
+          $location.path('');
+        }
+      };
     }]).
   // admin starting point, get al sections
   controller('AdminController', ['$scope', 'Section',

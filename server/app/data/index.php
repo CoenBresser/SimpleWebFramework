@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Step 1: Require the Slim Framework
  *
@@ -20,6 +21,7 @@ require 'Slim/Slim.php';
  * of setting names and values into the application constructor.
  */
 $app = new \Slim\Slim();
+$app->add(new \Slim\Extras\Middleware\HttpDigestAuth(array('admin' => 'joke2704', 'user2' => 'password2')));
 
 /**
  * Step 3: Define the Slim application routes
