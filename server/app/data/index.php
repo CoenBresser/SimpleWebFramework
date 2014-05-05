@@ -21,7 +21,6 @@ require 'Slim/Slim.php';
  * of setting names and values into the application constructor.
  */
 $app = new \Slim\Slim();
-$app->add(new \Slim\Extras\Middleware\HttpDigestAuth(array('admin' => 'joke2704', 'user2' => 'password2')));
 
 /**
  * Step 3: Define the Slim application routes
@@ -114,6 +113,12 @@ include 'Interfaces/v1.0.php';
  * Read only interface with correct indexation and implementation of partials for articles
  */
 include 'Interfaces/v1.1.php';
+
+/**
+ * v1.2 interface
+ * read/write with authorization
+ */
+include 'Interfaces/v2.0.php';
 
 /**
  * v2.0 interface

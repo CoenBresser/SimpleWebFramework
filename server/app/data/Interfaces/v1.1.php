@@ -9,10 +9,6 @@
  * - Workgroups 
  *   ? Category 
  */
- 
-// TODO: use groups: 
-// $app->group('/v1.1', function () use ($app) { $app->get('/books/:id', function () use ($app) {});});
-// TODO: use wildcard parameters (get's an array of parameters) or optional (sections(/:sectionId)
 
 // Sections
 $app->get('/v1.1/sections/', function () use ($app) { getV11File('sections.json', $app); });
