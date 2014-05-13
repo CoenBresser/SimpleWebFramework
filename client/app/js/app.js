@@ -15,6 +15,7 @@ angular.module('myApp', [
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/admin', {templateUrl: 'partials/admin.html', controller: 'AdminController'});
   $routeProvider.when('/:sectionId', {templateUrl: 'partials/section.html', controller: 'MainController'});
+  // todo: change to '/:workGroup/:category' for simplifying the services
   $routeProvider.when('/:sectionId/:galleryId', {templateUrl: 'partials/section.html', controller: 'MainController'});
   $routeProvider.otherwise({redirectTo: '/welcome'}); // always the main section 
 }]);

@@ -1,0 +1,28 @@
+[
+  {
+    "name":       "3 taartjes 65",
+    "file":       "3_taartjes_65_web.jpg",
+    "description":"opdracht tgv verjaardag Philomeen",
+    "height":     60,
+    "width":      100,
+    "canvas":     "doek",
+    "price":      "",
+    "date":       2012
+  },
+  {"name":"Anna Enquist","file":"Anna_Enquist_web.jpg","description":"nav foto in de Volkskrant","height":50,"width":40,"canvas":"papier","price":"","date":2010},
+  {"name":"Anne","file":"Anne_web.jpg","description":"model, met zonnehoed","height":40,"width":30,"canvas":"doek / linnen","price":"","date":1999},
+  {"name":"Anne - bleu ","file":"Anne_bleu_web.jpg","description":"model, naakt","height":50,"width":70,"canvas":"papier","price":"","date":1999},
+  {"name":"Birgit","file":"Birgit_web.jpg","description":"model, naakt","height":50,"width":70,"canvas":"papier","price":"","date":1999},
+  {"name":"Dames ","file":"dames_web.jpg","description":"geinspireerd door werk van Ryno Swart.","height":60,"width":60,"canvas":"hout","price":"Lijst","date":2006},
+  {"name":"Dochter van Liesbeth","file":"dochter_van_Liesbeth_web.jpg","description":"model, naakt","height":60,"width":80,"canvas":"textiel / papier","price":"","date":2000},
+  {"name":"Eenzaam","file":"eenzaam_web.jpg","description":"","height":50,"width":50,"canvas":"hout","price":"","date":2005},
+  {"name":"Eric","file":"danser_Eric_web.jpg","description":"inspiratie uit tijdschrift van de dansacademie  Rotterdam, waar neef Erik een dansopleiding gevolgd heeft ( link naar dansgezelschap Erik )","height":90,"width":60,"canvas":"linnen","price":"Lijst","date":2002},
+  {"name":"Maria","file":"Maria_web.jpg","description":"model, naakt","height":50,"width":40,"canvas":"hout","price":"","date":1999},
+  {"name":"Renee","file":"Renee_web.jpg","description":"Renee, zwanger van Robin, laatste loodjes….","height":40,"width":50,"canvas":"doek / linnen","price":"","date":2004},
+  {"name":"Sauna","file":"sauna_web.jpg","description":"","height":70,"width":50,"canvas":"doek / linnen","price":"","date":2002},
+  {"name":"The sleeping lady of Malta 1","file":"the_sleeping_lady_of_Malta_aquarel_web.jpg","description":"","height":50,"width":70,"canvas":"papier","price":"","date":2007},
+  {"name":"The sleeping lady of Malta 2","file":"the_sleeping_lady_of_Malta_aquarel_2_web.jpg","description":"","height":40,"width":60,"canvas":"papier","price":"","date":2007},
+  {"name":"The sleeping lady of Malta 3","file":"the_sleeping_lady_of_Malta_acryl_web.jpg","description":"Inspiratie van beeldje van oermoeder in museum in Valetta, op Malta","height":60,"width":85,"canvas":"hout","price":"","date":2008},
+  {"name":"Turquoise tors","file":"turquoise_tors_web.jpg","description":"model, naakt, gemengde techniek op textielvlies","height":55,"width":47,"canvas":"textiel","price":"Lijst","date":2000},
+  {"name":"Zwanger","file":"zwanger_web.jpg","description":"model, naakt","height":60,"width":60,"canvas":"hout","price":"","date":2000}
+]

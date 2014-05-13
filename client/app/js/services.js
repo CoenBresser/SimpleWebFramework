@@ -1,33 +1,21 @@
 'use strict';
 
-/* Services */
-
-
-// Demonstrate how to register services
 angular.module('myApp.services', ['ngResource']).
-//  value('version', '0.1').
   factory('Section', ['$resource', 
     function($resource){
-      return $resource('data/v1.1/sections/:sectionId', {}, {
+      return $resource('data/v2.0/sections/:sectionId', {}, {
         query: {method:'GET', params:{sectionId:''}, isArray:true}
       });
     }]).
   factory('Article', ['$resource', 
     function($resource){
-      return $resource('data/v1.1/sections/:sectionId/articles/:articleId', {}, {
+      return $resource('data/v2.0/articles/:articleId', {}, {
         query: {method:'GET', params:{articleId:''}, isArray:true}
       });
     }]).
   factory('Works', ['$resource', 
     function($resource){
-      return $resource('data/v1.1/works/:workGroup', {}, {
+      return $resource('data/v2.0/:workGroup/:workId', {}, {
         query: {method:'GET', isArray:true}
-      });
-    }]).
-  factory('User', ['$resource', 
-    function($resource){
-      return $resource('data/v1.1/users/:userId', {}, {
-        login: {method:'GET', params:{userId:'login'}, isArray:false},
-        logout: {method:'GET', params:{userId:'logout'}, isArray:false}
       });
     }]);

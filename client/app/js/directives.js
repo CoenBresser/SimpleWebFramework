@@ -32,4 +32,29 @@ angular.module('myApp.directives', []).
         }
       }
     };
+  })
+  .directive('placeholder', function($timeout){
+      // Fix the lacking placeholder in IE9
+      var userAgent = navigator.userAgent;
+      if (userAgent.indexOf('MSIE') < 0 || userAgent.indexOf('MSIE 1') > -1) {
+          return {};
+      }
+      return {
+          link: function(scope, elm, attrs){
+              if (attrs.type === 'password') {
+                  return;
+              }
+              $timeout(function(){
+                  elm.val(attrs.placeholder).focus(function(){
+                      if ($(this).val() == $(this).attr('placeholder')) {
+                          $(this).val('');
+                      }
+                  }).blur(function(){
+                      if ($(this).val() == '') {
+                          $(this).val($(this).attr('placeholder'));
+                      }
+                  });
+              });
+          }
+      }
   });

@@ -132,6 +132,21 @@ StaticServlet.prototype.handleGetRequest = function(req, res) {
     util.puts('Mapped path: ' + path);
   }
   
+  if (path.startsWith('./app/data/v2.')) {
+    util.puts('In v2.x data directory, do a mapping.');
+    // The mapping is easy, add .json at the end unless filtered, then add the id and value
+    if (req.url.query.sectionId) {
+      util.puts('SectionId: ' + req.url.query.sectionId);
+      path = path + '-sectionId-' + req.url.query.sectionId;
+    }
+    if (req.url.query.category) {
+      util.puts('Category: ' + req.url.query.category);
+      path = path + '-category-' + req.url.query.category;
+    }
+    path = path + '.json';
+    util.puts('Mapped path: ' + path);
+  }
+  
   fs.stat(path, function(err, stat) {
     if (err)
       return self.sendMissing_(req, res, path);

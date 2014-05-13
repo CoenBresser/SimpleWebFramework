@@ -25,7 +25,7 @@ angular.module('myApp.controllers', []).
   controller('AdminController', ['$scope', 'Section',
     function($scope, Section) {
       // get a user
-      $scope.sections = Section.query();
+      //$scope.sections = Section.query();
     }]).
   // admin section content controller
   controller('AdminSectionController', ['$scope', 'Article',
@@ -52,6 +52,7 @@ angular.module('myApp.controllers', []).
   controller('MainController', ['$scope', 'Section', '$routeParams', 
     function($scope, Section, $routeParams) {
       var sectionId = ($routeParams.galleryId) ? 'gallery' : $routeParams.sectionId;
+      //console.debug(sectionId);
       $scope.section = Section.get({sectionId: sectionId});
     }]).
     
@@ -60,6 +61,7 @@ angular.module('myApp.controllers', []).
     function($scope, Article, $routeParams) {
       // Get the articles to build up the gallery
       var sectionId = ($routeParams.galleryId) ? 'gallery' : $routeParams.sectionId;
+      //console.debug(sectionId);
       $scope.articles = Article.query({sectionId: sectionId});
     }]).
     
@@ -69,7 +71,6 @@ angular.module('myApp.controllers', []).
       if (!$scope.article.partialUrl) {
         $scope.article.partialUrl = "partials/basicArticle.html"
       }
-      
       $scope.handleClick = function() {
         if ($scope.article.link) {
           if ($scope.article.link.startsWith('http://')) {
@@ -78,7 +79,7 @@ angular.module('myApp.controllers', []).
             $location.path($scope.article.link);
           }
         } else {
-          console.debug('No action defined for article ' + $scope.article.id);
+          //console.debug('No action defined for article ' + $scope.article.id);
         }
       };
     }]).
@@ -88,7 +89,7 @@ angular.module('myApp.controllers', []).
       $scope.submitted = false;
       
       $scope.submit = function () {
-        console.debug($scope.fdata);
+        //console.debug($scope.fdata);
         $http.post('services/feedback.php', $scope.fdata)
           .success(function(){
             // TODO: Check for response (errors are responded as errors by the service)
