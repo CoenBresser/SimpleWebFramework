@@ -33,8 +33,7 @@ footer {
 
 header {
   text-align: center;
-  margin-top: 70px;
-  margin-bottom: 30px;
+  margin: 70px 0px;
   background-image: url('../img/header.png');
   background-repeat: no-repeat;
   background-position: center center;
