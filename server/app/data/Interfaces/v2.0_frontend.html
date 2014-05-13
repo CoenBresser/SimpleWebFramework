@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html id="ng-app" ng-app="myApp">
+<head>
+  <meta charset="utf-8">
+  <title>Data administrator</title>
+  <meta name="description" content="Data backend">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    html,body,div,span,object,iframe,
+    h1,h2,h3,h4,h5,h6,p,blockquote,pre,
+    abbr,address,cite,code,
+    del,dfn,em,img,ins,kbd,q,samp,
+    small,strong,sub,sup,var,
+    b,i,
+    dl,dt,dd,ol,ul,li,
+    fieldset,form,label,legend,
+    table,caption,tbody,tfoot,thead,tr,th,td,
+    article,aside,canvas,details,figcaption,figure,
+    footer,header,hgroup,menu,nav,section,summary,
+    time,mark,audio,video{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent;}
+    body{line-height:1;}
+    article,aside,details,figcaption,figure,
+    footer,header,hgroup,menu,nav,section{display:block;}
+    nav ul{list-style:none;}
+    blockquote,q{quotes:none;}
+    blockquote:before,blockquote:after,
+    q:before,q:after{content:'';content:none;}
+    a{margin:0;padding:0;font-size:100%;vertical-align:baseline;background:transparent;}
+    ins{background-color:#ff9;color:#000;text-decoration:none;}
+    mark{background-color:#ff9;color:#000;font-style:italic;font-weight:bold;}
+    del{text-decoration:line-through;}
+    abbr[title],dfn[title]{border-bottom:1px dotted;cursor:help;}
+    table{border-collapse:collapse;border-spacing:0;}
+    hr{display:block;height:1px;border:0;border-top:1px solid #cccccc;margin:1em 0;padding:0;}
+    input,select{vertical-align:middle;}
+    html{ background: #EDEDED; height: 100%; }
+    body{background:#FFF;margin:0 auto;min-height:100%;padding:0 30px;width:100%;max-width:600px;color:#666;font:14px/23px Arial,Verdana,sans-serif;}
+    h1,h2,h3,p,ul,ol,form,section{margin:0 0 20px 0;}
+    h1{color:#333;font-size:20px;}
+    h2,h3{color:#333;font-size:14px;}
+    h3{margin:0;font-size:12px;font-weight:bold;}
+    ul,ol{list-style-position:inside;color:#999;}
+    ul{list-style-type:square;}
+    code,kbd{background:#EEE;border:1px solid #DDD;border:1px solid #DDD;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;padding:0 4px;color:#666;font-size:12px;}
+    pre{background:#EEE;border:1px solid #DDD;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;padding:5px 10px;color:#666;font-size:12px;}
+    pre code{background:transparent;border:none;padding:0;}
+    a{color:#70a23e;}
+    header{padding: 30px 0;text-align:center;}
+    td{padding: 0 2px;}
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-resource.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.js"></script>
+  <script type="text/ng-template" id="partials/dbList.html">
+    <h2>Live databases</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th></th>
+      </tr>
+      <tr ng-repeat="db in dbList | orderBy:'name'">
+        <td>{{db.name}}</td>
+        <td>
+          <img ng-click="delete(db)" style="cursor: pointer; width: 16px; height: 16px; vertical-align: middle;" alt="delete" title="delete" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACX0lEQVRYR+2XUW7TQBCGZxxTHipoJHiohKCu2gPkAKSqewI4Ac0RcoHE7QUoJ2hvQLlAbBHeGw4ARPCARIswvFLtMOtmjb1Z2+vaeQI/JrP7f/vvzswuQsW3H4Q9RDdExG5VbPZ/IooR4NVk3A/KxnFM8Xdb8fyMdD4Z9Z8XqRQC6OJEMONVDe1coC6iM0aEnowXQgyiYO/MNNYIYFo5AUXhqO/bAQDwHAxx54IhPB5zNhk9HVgBFNleF0CK+cfTEAH3y8bmHCjb85UDVB24lQJUiUs7VwZgI75SAP9o+sOqyBAdVRUV/ZRbHcKD43eUrJDzHJBiY6oImk2CPcsa8HeGWgBCkB8F/cg2z23i/gP8Gw583fQ8d809RKL5wy8fcg3H5IAejyoLbnMI5WRrdzsXAOldYfbr57W/Hc+TbFIAqht+e+T1Om4nVPFc3M4bAVw+2Q0chLGWESnEQfD2pQB4L1uxLq7GNAK4erxziA6eGlIy50SROFefuBGAFP6+tctbcHPxMDmxvg5e1vZsDAkaNAb41PW69zdc3lczBK+SLyTL90kpLg9tYwC5ogqIJWuUuPyjFYA6EFnxVgGsIEgMH3z+eJK1pDUH5KTFpz2VzGVHqw5YiCuKHEQrDtQQX4JoDFAqznsO6LwoqxMpAD9fTureegy9IN1sddrLUnTRC6avORufJSMZQgC+MVQ17afrOAr8WUEvAD3VyiDQ9lacK6GLZ5qpF+jiapwZInlBJ++4nuO43NUWTlRbwGb93mYX5ldbO8nzSzYWEjDU7wTZqSTEvY3OKcez4zfxfwCpBCLK1uBvpwAAAABJRU5ErkJggg==" />
+        </td>
+        <td><a ng-href="#/edit/{{db.name}}">
+          <img style="width: 16px; height: 16px; vertical-align: middle;" alt="edit" title="edit" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACfElEQVRYR7WXXW7aQBDHZ1ZUfakijuCXFqQKxAFKhDlBcgPyVoVITS8ANhcglaqqb9AThFwArND3+qGVkPpQbhArbaSkEZ7OunEErj/Wa3dfEPLu/n8zOzM7i5AxOtaihVhZIGI1a+72dyLyEODdfNi20tbxnOShK767I83mg/ZhkkoiQFScCFy26q2aF6iKKIaI0JLzfd8/cqz9adzaWIA4ywnIWQzaphoAAO/BEE++MITBa6bzwasjJYAkt+cFkGLmaLlAwE7a2h0PpJ25LgAQVonuTccyvXr9tQGVivQIrL6+d+TvI0BWwOkAdK3LsQ8bW4rXGv0xZ9JpeAy839rf0GEAkCUu5+gAhGIvGv2JQOxFY4CD2kEV8SIASeIhDJr28kqpyBDZWUUlamGWeBAD3dFnCizkPAckLzZVfHLn1r5iDfi7g4p4cAQhgO8TR2o7iMyiQ0kcyL27vjFLB8gjvl5PvVIB8orvxEDRI9ARLw1AV7wUgCLihQHqzROLNxmmZQ1X0CDaZcDFpniRNKw1T664lid2SlniZXggKGJxY1u8Y10ecEMyK80D4bVKAs7jPLAtzh6e8H8jqZnRqgPyamVrWgj0CVBMti3bEefrGIQ4TW1I8saAYfSqT/ee/ZCW+0RT7vguEMSbBwj37ueNHQacUkeUFyAa+bKxwN8bc7X6uI6e8X8BqDX7bD0aHH0e32Yzcb+x48QlTOkA9cZxj1CM5YPj9vrXWVJuh54oHeD5y+PW928fXNXrunQAVWEtD/Dz5Sxv15MGpPww6Y6W59yZHQSbMYQPeJHX0n/n53iaqXbF+lAKj1MJIUSFb7UHT+irPa5UfZ7/AbpqK1dQR4kjAAAAAElFTkSuQmCC" />
+        </a></td>
+        <td><a ng-href="{{db.name}}">
+          <img style="width: 16px; height: 16px; vertical-align: middle;" alt="dump" title="get all data" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAD9ElEQVRYR6VXSUwTURh+/7RsgqReTDjZuoQagZSDZ9oDiZ6Ei0dtEzUITaCJS+IFejFxSQoJIFGTVo9eqCdMPLScPdAAxhKX1hOJFxsWodDO83/Tvul0Zto3LXObt/zf9+//A9LA54wOe2ySPQFAHGbXKCW5olzwZQOfU1bFguiguy/opUCngdB3hQeZSQLEU/cOJSn7S9ccJXAbKITTm/PJeudrEnA6/Y62011R1HZEESATX+HRz4SIMNu3P7/gIxJRzqJV4vndvUA2G8uZ3TUlcOnKuEeySQncVExNCcnJRdlHH2fWrBCAZ65Bs/vfvy4aXGMg4O4f9xOQohyIUjqb390PMw0uvr+OXMTfj1srULJg5zQATKk3qBxIbyzGtBKqCDDNbTapoqXuQiMEOIheoWJRHtRaQiWgMO7uynCzy9f+hIt9O0PVbMEr1p+5jFYFnm2ze1X6dHaauzO/s+fiMaES6O0PLqsBh5ofP/w1BAT8VgBFZ5BQrOXF+VXuWhaYWxvzo+yeQoClWiVq6ezWxkLIGfU67FJHQph2YvRUQT7A2pDM9fZPRNSYwKxiKaoQwA0sLuBl0a41z4lJYE3g4AxH62YM7iQq6gO3e8xJWu2ZsiLh9Pr8jFappknowNWgHAgy+Uo8kKOCC3oHJqbQ1xG+kE4vZfVW/fDa43nS1hO17A4Ef5rfDty8lzLkvVZhjI0Q8ODDn9TW+sKgHnzvlRvrAkS+0LbRu6d6IkISCP7m33boKuSXsQyGuu6nY3qZqPQaKu1hwcgsgKkHTlZwWPDpD+8vXV7GtREWH0ISGvByOsc7x74p0a79eDCi0llwDwSV6sbMgRaYNSGgVr+6JIzgiigkYKi2WrerBFizMetcaIGq8stJ3OnsmUTJSqPCtfjb/e05ZnZeyLgiZgS0ad8wAS5YpjS8YmuPDxcPc3ZC/BJAKbJ1n2UCVlxgBiBaE7rAahCKgGrsi4PQShpilVTbcyNEMLMCVtJQWIiwFiilukHwJIL79HcMhUhUipmAvxGno6WjQ23VIiIsU44PDlxnQlnDGIZpP4P3K6WYCavVjLRACon2dmzZ9S3Bmszx4eGoGbhpM2IgZu24lpasNCOJG7hfGlYrXxzBP5r5nB+p2Y5LVqgeSPSzm8json3taGYYSNhl/Uimn91EAPX2tbOmfuZoaChthoTloZQLrzeWN0KgqbGcA5g9TNBUczjBxMwGFi2xclr70dSsWVU9bCw9TLgww9OsvMEGF2x/SRxMfoMMysRDJerBtXO45mWDhpZQU0+zKo3447SJSniix6ne38y0tNU2QigMEaAeNkVVaYrTDe6lcG8Vjopxkav43f8G8YNv4C101wAAAABJRU5ErkJggg==" />
+        </a></td>
+      </tr>
+      <tr>
+        <td><input type="text" name="newDb" placeholder="Add a new database" ng-model="newDbName" ng-enter="addNew()"></td>
+      </tr>
+    </table>
+    <p></p>
+    <!-- h2>Maintenance</h2>
+    <p>
+      <a href="#/backuprestore">
+        <img style="cursor: pointer; vertical-align: middle;" alt="backup/restore" title="backup/restore" src="data:image/png;base64,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" />
+      </a>
+      <a href="#/recyclebin">
+        <img style="cursor: pointer; vertical-align: middle;" alt="recycle bin" title="recycle bin" src="data:image/png;base64,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" />
+      </a>
+    </p -->
+  </script>
+  <script type="text/ng-template" id="partials/dbEdit.html">
+    <h2>Editing database "{{dbId}}".</h2>
+    <img style="height: 16px; width: auto; vertical-align: middle;" alt="edit" title="Edit the full content" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACfElEQVRYR7WXXW7aQBDHZ1ZUfakijuCXFqQKxAFKhDlBcgPyVoVITS8ANhcglaqqb9AThFwArND3+qGVkPpQbhArbaSkEZ7OunEErj/Wa3dfEPLu/n8zOzM7i5AxOtaihVhZIGI1a+72dyLyEODdfNi20tbxnOShK767I83mg/ZhkkoiQFScCFy26q2aF6iKKIaI0JLzfd8/cqz9adzaWIA4ywnIWQzaphoAAO/BEE++MITBa6bzwasjJYAkt+cFkGLmaLlAwE7a2h0PpJ25LgAQVonuTccyvXr9tQGVivQIrL6+d+TvI0BWwOkAdK3LsQ8bW4rXGv0xZ9JpeAy839rf0GEAkCUu5+gAhGIvGv2JQOxFY4CD2kEV8SIASeIhDJr28kqpyBDZWUUlamGWeBAD3dFnCizkPAckLzZVfHLn1r5iDfi7g4p4cAQhgO8TR2o7iMyiQ0kcyL27vjFLB8gjvl5PvVIB8orvxEDRI9ARLw1AV7wUgCLihQHqzROLNxmmZQ1X0CDaZcDFpniRNKw1T664lid2SlniZXggKGJxY1u8Y10ecEMyK80D4bVKAs7jPLAtzh6e8H8jqZnRqgPyamVrWgj0CVBMti3bEefrGIQ4TW1I8saAYfSqT/ee/ZCW+0RT7vguEMSbBwj37ueNHQacUkeUFyAa+bKxwN8bc7X6uI6e8X8BqDX7bD0aHH0e32Yzcb+x48QlTOkA9cZxj1CM5YPj9vrXWVJuh54oHeD5y+PW928fXNXrunQAVWEtD/Dz5Sxv15MGpPww6Y6W59yZHQSbMYQPeJHX0n/n53iaqXbF+lAKj1MJIUSFb7UHT+irPa5UfZ7/AbpqK1dQR4kjAAAAAElFTkSuQmCC" />
+    <img style="height: 16px; width: auto; vertical-align: middle;" alt="empty" title="Empty the database" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACX0lEQVRYR+2XUW7TQBCGZxxTHipoJHiohKCu2gPkAKSqewI4Ac0RcoHE7QUoJ2hvQLlAbBHeGw4ARPCARIswvFLtMOtmjb1Z2+vaeQI/JrP7f/vvzswuQsW3H4Q9RDdExG5VbPZ/IooR4NVk3A/KxnFM8Xdb8fyMdD4Z9Z8XqRQC6OJEMONVDe1coC6iM0aEnowXQgyiYO/MNNYIYFo5AUXhqO/bAQDwHAxx54IhPB5zNhk9HVgBFNleF0CK+cfTEAH3y8bmHCjb85UDVB24lQJUiUs7VwZgI75SAP9o+sOqyBAdVRUV/ZRbHcKD43eUrJDzHJBiY6oImk2CPcsa8HeGWgBCkB8F/cg2z23i/gP8Gw583fQ8d809RKL5wy8fcg3H5IAejyoLbnMI5WRrdzsXAOldYfbr57W/Hc+TbFIAqht+e+T1Om4nVPFc3M4bAVw+2Q0chLGWESnEQfD2pQB4L1uxLq7GNAK4erxziA6eGlIy50SROFefuBGAFP6+tctbcHPxMDmxvg5e1vZsDAkaNAb41PW69zdc3lczBK+SLyTL90kpLg9tYwC5ogqIJWuUuPyjFYA6EFnxVgGsIEgMH3z+eJK1pDUH5KTFpz2VzGVHqw5YiCuKHEQrDtQQX4JoDFAqznsO6LwoqxMpAD9fTureegy9IN1sddrLUnTRC6avORufJSMZQgC+MVQ17afrOAr8WUEvAD3VyiDQ9lacK6GLZ5qpF+jiapwZInlBJ++4nuO43NUWTlRbwGb93mYX5ldbO8nzSzYWEjDU7wTZqSTEvY3OKcez4zfxfwCpBCLK1uBvpwAAAABJRU5ErkJggg==" />
+    <input type="text" name="newItem" placeholder="Add a new entry" ng-model="newItem" ng-enter="addNew()">
+    <p></p>
+    <table>
+      <tr>
+        <th>Id</th>
+      </tr>
+      <tr ng-repeat="item in itemList | orderBy:'id'">
+        <td>{{item.id}}</td>
+        <td>
+          <img ng-click="delete(item)" style="cursor: pointer; width: 16px; height: 16px; vertical-align: middle;" alt="delete" title="delete" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACX0lEQVRYR+2XUW7TQBCGZxxTHipoJHiohKCu2gPkAKSqewI4Ac0RcoHE7QUoJ2hvQLlAbBHeGw4ARPCARIswvFLtMOtmjb1Z2+vaeQI/JrP7f/vvzswuQsW3H4Q9RDdExG5VbPZ/IooR4NVk3A/KxnFM8Xdb8fyMdD4Z9Z8XqRQC6OJEMONVDe1coC6iM0aEnowXQgyiYO/MNNYIYFo5AUXhqO/bAQDwHAxx54IhPB5zNhk9HVgBFNleF0CK+cfTEAH3y8bmHCjb85UDVB24lQJUiUs7VwZgI75SAP9o+sOqyBAdVRUV/ZRbHcKD43eUrJDzHJBiY6oImk2CPcsa8HeGWgBCkB8F/cg2z23i/gP8Gw583fQ8d809RKL5wy8fcg3H5IAejyoLbnMI5WRrdzsXAOldYfbr57W/Hc+TbFIAqht+e+T1Om4nVPFc3M4bAVw+2Q0chLGWESnEQfD2pQB4L1uxLq7GNAK4erxziA6eGlIy50SROFefuBGAFP6+tctbcHPxMDmxvg5e1vZsDAkaNAb41PW69zdc3lczBK+SLyTL90kpLg9tYwC5ogqIJWuUuPyjFYA6EFnxVgGsIEgMH3z+eJK1pDUH5KTFpz2VzGVHqw5YiCuKHEQrDtQQX4JoDFAqznsO6LwoqxMpAD9fTureegy9IN1sddrLUnTRC6avORufJSMZQgC+MVQ17afrOAr8WUEvAD3VyiDQ9lacK6GLZ5qpF+jiapwZInlBJ++4nuO43NUWTlRbwGb93mYX5ldbO8nzSzYWEjDU7wTZqSTEvY3OKcez4zfxfwCpBCLK1uBvpwAAAABJRU5ErkJggg==" />
+        </td>
+        <td><a ng-href="#/edit/{{dbId}}/{{item.id}}">
+          <img style="width: 16px; height: 16px; vertical-align: middle;" alt="edit" title="edit" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACfElEQVRYR7WXXW7aQBDHZ1ZUfakijuCXFqQKxAFKhDlBcgPyVoVITS8ANhcglaqqb9AThFwArND3+qGVkPpQbhArbaSkEZ7OunEErj/Wa3dfEPLu/n8zOzM7i5AxOtaihVhZIGI1a+72dyLyEODdfNi20tbxnOShK767I83mg/ZhkkoiQFScCFy26q2aF6iKKIaI0JLzfd8/cqz9adzaWIA4ywnIWQzaphoAAO/BEE++MITBa6bzwasjJYAkt+cFkGLmaLlAwE7a2h0PpJ25LgAQVonuTccyvXr9tQGVivQIrL6+d+TvI0BWwOkAdK3LsQ8bW4rXGv0xZ9JpeAy839rf0GEAkCUu5+gAhGIvGv2JQOxFY4CD2kEV8SIASeIhDJr28kqpyBDZWUUlamGWeBAD3dFnCizkPAckLzZVfHLn1r5iDfi7g4p4cAQhgO8TR2o7iMyiQ0kcyL27vjFLB8gjvl5PvVIB8orvxEDRI9ARLw1AV7wUgCLihQHqzROLNxmmZQ1X0CDaZcDFpniRNKw1T664lid2SlniZXggKGJxY1u8Y10ecEMyK80D4bVKAs7jPLAtzh6e8H8jqZnRqgPyamVrWgj0CVBMti3bEefrGIQ4TW1I8saAYfSqT/ee/ZCW+0RT7vguEMSbBwj37ueNHQacUkeUFyAa+bKxwN8bc7X6uI6e8X8BqDX7bD0aHH0e32Yzcb+x48QlTOkA9cZxj1CM5YPj9vrXWVJuh54oHeD5y+PW928fXNXrunQAVWEtD/Dz5Sxv15MGpPww6Y6W59yZHQSbMYQPeJHX0n/n53iaqXbF+lAKj1MJIUSFb7UHT+irPa5UfZ7/AbpqK1dQR4kjAAAAAElFTkSuQmCC" />
+        </a></td>
+      </tr>
+      <tr ng-show="itemList.length == 0">
+        <td>No data</td>
+      </tr>
+    </table>
+  </script>
+  <script type="text/ng-template" id="partials/itemEdit.html">
+    <h2>Editing item "{{itemId}}" in database "{{dbId}}".</h2>
+    <textarea json style="width: 100%; height: 200px;" ng-model="item"></textarea>
+    <input type="button" ng-click="save()" value="Ok"></input>
+    <!-- TODO: show saved info, disable/enable button on edit&save -->
+  </script>
+</head>
+<body>
+
+  <header>
+    <a href="http://www.slimframework.com"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHIAAAA6CAYAAABs1g18AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABRhJREFUeNrsXY+VsjAMR98twAo6Ao4gI+gIOIKOgCPICDoCjCAjXFdgha+5C3dcv/QfFB5i8h5PD21Bfk3yS9L2VpGnlGW5kS9wJMTHNRxpmjYRy6SycgRvL18OeMQOTYQ8HvIoJKiiz43hgHkq1zvK/h6e/TyJQXeV/VyWBOSHA4C5RvtMAiCc4ZB9FPjgRI8+YuKcrySO515a1hoAY3nc4G2AH52BZsn+MjaAEwIJICKAIR889HljMCcyrR0QE4v/q/BVBQva7Q1tAczG18+x+PvIswHEAslLbfGrMZKiXEOMAMy6LwlisQCJLPFMfKdBtli5dIihRyH7A627Iaiq5sJ1ThP9xoIgSdWSNVIHYmrTQgOgRyRNqm/M5PnrFFopr3F6B41cd8whRUSufUBU5EL4U93AYRnIWimCIiSI1wAaAZpJ9bPnxx8eyI3Gt4QybwWa6T/BvbQECUMQFkhd3jSkPFgrxwcynuBaNT/u6eJIlbGOBWSNIUDFEIwPZFAtBfYrfeIOSRSXuUYCsprCXwUIZWYnmEhJFMIocMDWjn206c2EsGLCJd42aWSyBNMnHxLEq7niMrY2qyDbQUbqrrTbwUPtxN1ZZCitQV4ZSd6DyoxhmRD6OFjuRUS/KdLGRHYowJZaqYgjt9Lchmi3QYA/cXBsHK6VfWNR5jgA1DLhwfFe4HqfODBpINEECCLO47LT/+HSvSd/OCOgQ8qE0DbHQUBqpC4BkKMPYPkFY4iAJXhGAYr1qmaqQDbECCg5A2NMchzR567aA4xcRKclI405Bmt46vYD7/Gcjqfk6GP/kh1wovIDSHDfiAs/8bOCQ4cf4qMt7eH5Cucr3S0aWGFfjdLHD8EhCFvXQlSqRrY5UV2O9cfZtk77jUFMXeqzCEZqSK4ICkSin2tE12/3rbVcE41OBjBjBPSdJ1N5lfYQpIuhr8axnyIy5KvXmkYnw8VbcwtTNj7fDNCmT2kPQXA+bxpEXkB21HlnSQq0gD67jnfh5KavVJa/XQYEFSaagWwbgjNA+ywstLpEWTKgc5gwVpsyO1bTII+tA6B7BPS+0PiznuM9gPKsPVXbFdADMtwbJxSmkXWfRh6AZhyyzBjIHoDmnCGaMZAKjd5hyNJYCBGDOVcg28AXQ5atAVDO3c4dSALQnYblfa3M4kc/cyA7gMIUBQCTyl4kugIpy8yA7ACqK8Uwk30lIFGOEV3rPDAELwQkr/9YjkaCPDQhCcsrAYlF1v8W8jAEYeQDY7qn6tNGWudfq+YUEr6uq6FZzBpJMUfWFDatLHMCciw2mRC+k81qCCA1DzK4aUVfrJpxnloZWCPVnOgYy8L3GvKjE96HpweQoy7iwVQclVutLOEKJxA8gaRCjSzgNI2zhh3bQhzBCQQPIHGaHaUd96GJbZz3Smmjy16u6j3FuKyNxcBarxqWWfYFE0tVVO1Rl3t1Mb05V00MQCJ71YHpNaMcsjWAfkQvPPkaNC7LqTG7JAhGXTKYf+VDeXAX9IvURoAwtTFHvyYIxtnd5tPkywrPafcwbeSuGVwFau3b76NO7SHQrvqhfFE8kM0Wvpv8gVYiYBlxL+fW/34bgP6bIC7JR7YPDubcHCPzIp4+cum7U6NlhZgK7lua3KGLeFwE2m+HblDYWSHG2SAfINuwBBfxbJEIuWZbBH4fAExD7cvaGVyXyH0dhiAYc92z3ZDfUVv+jgb8HrHy7WVO/8BFcy9vuTz+nwADAGnOR39Yg/QkAAAAAElFTkSuQmCC" alt="Slim" title="Built with the Slim Framework"/></a>
+  </header>
+  
+  <h1>Data backend administrator</h1>
+  <div ng-view></div>
+
+  <script>
+'use strict';
+
+function arr_delete(item) {
+  for(var i = this.length; i--;) {
+    if(this[i] === item) {
+      this.splice(i, 1);
+    }
+  }
+}
+Array.prototype.delete = arr_delete;
+
+if (typeof Array.isArray === 'undefined') {
+  Array.isArray = function(obj) {
+    return Object.toString.call(obj) === '[object Array]';
+  }
+};
+
+// Declare app level module which depends on filters, and services
+angular.module('myApp', [
+  'ngResource',
+  'ngRoute',
+  'myApp.services',
+  'myApp.directives',
+  'myApp.controllers'
+]).
+config(['$routeProvider', function($routeProvider) {
+  $routeProvider.when('/dbList', {templateUrl: 'partials/dbList.html', controller: 'dbListCtrl'});
+  $routeProvider.when('/edit/:dbId', {templateUrl: 'partials/dbEdit.html', controller: 'dbEditCtrl'});
+  $routeProvider.when('/edit/:dbId/:itemId', {templateUrl: 'partials/itemEdit.html', controller: 'itemEditCtrl'});
+  $routeProvider.otherwise({redirectTo: '/dbList'});
+}]);
+
+angular.module('myApp.controllers', [])
+  .controller('dbListCtrl', ['$scope', 'DbList', function($scope, DbList) {
+    $scope.dbList = DbList.query();
+    $scope.addNew = function () {
+      var newDb = {name: $scope.newDbName}; 
+      DbList.add({dbId: $scope.newDbName}, newDb, function (response) { 
+        $scope.dbList.push(response);
+      });
+      $scope.newDbName = "";
+    }
+    $scope.delete = function (deleteDb) {
+      if (confirm('Are you sure you want to delete this database?')) {
+        deleteDb.$delete(function (response) {
+          $scope.dbList.delete(deleteDb);
+        });
+      }
+    }
+  }])
+  .controller('dbEditCtrl', ['$scope', '$routeParams', 'JsonDb', function($scope, $routeParams, JsonDb) {
+    $scope.dbId = $routeParams.dbId;
+    $scope.itemList = JsonDb.query();
+    $scope.addNew = function () {
+      var newItem = eval('(' + $scope.newItem + ')'); 
+      if (Array.isArray(newItem)) {
+        for (var i = 0; i < newItem.length; i++) {
+          JsonDb.add({}, newItem[i], function (response) { 
+            $scope.itemList.push(response);
+          });
+        }
+        $scope.newItem = "";
+      } else {
+        JsonDb.add({}, newItem, function (response) { 
+          $scope.itemList.push(response);
+          $scope.newItem = "";
+        });
+      }
+    }
+    $scope.delete = function (deleteItem) {
+      if (confirm('Are you sure you want to delete this item?')) {
+        deleteItem.$delete(function (response) {
+          $scope.itemList.delete(deleteItem);
+        });
+      }
+    }
+  }])
+  .controller('itemEditCtrl', ['$scope', '$routeParams', 'JsonDb', function($scope, $routeParams, JsonDb) {
+  // TODO: figure out a way to edit binary stuff like images or do base64 encoding
+    $scope.dbId = $routeParams.dbId;
+    $scope.itemId = $routeParams.itemId;
+    $scope.item = JsonDb.get();
+    $scope.save = function () {
+      // The item.$save doesn't work because the json directive strips the resource info
+      JsonDb.save($scope.item);
+    }
+  }]);
+  
+angular.module('myApp.services', []).
+  factory('DbList', ['$resource', 
+    function($resource){
+      return $resource(':dbId', {dbId: '@name'}, {
+        query: {method:'GET', url: '?dbList', isArray:true},
+        add: {method:'PUT', params: {dbId: '@name'}}
+      });
+    }]).
+  factory('JsonDb', ['$resource', '$routeParams',
+    function($resource, $routeParams){
+      return $resource(':dbId/:itemId', {dbId: function() { return $routeParams.dbId; }, itemId: '@id'}, {
+        query: {method:'GET', isArray:true},
+        get: {method:'GET', params:{itemId: function() { return $routeParams.itemId; }}},
+        add: {method:'PUT'},
+        save:{method:'PATCH'}
+      });
+    }]);
+
+angular.module('myApp.directives', []).
+  directive('ngEnter', function() {
+    return function(scope, element, attrs) {
+      element.bind("keydown keypress", function(event) {
+          if(event.which === 13) {
+              scope.$apply(function(){
+                  scope.$eval(attrs.ngEnter, {'event': event});
+              });
+              event.preventDefault();
+          }
+      });
+    };
+  }).
+  directive('json', function() {
+    return {
+      restrict: 'A', // only activate on element attribute
+      require: 'ngModel', // get a hold of NgModelController
+      link: function(scope, element, attrs, ngModelCtrl) {
+        function fromUser(text) {
+          // Beware: trim() is not available in old browsers
+          if (!text || text.trim() === '')
+            return {}
+          else
+            // TODO catch SyntaxError, and set validation error..
+            return angular.fromJson(text);
+        }
+
+        function toUser(object) {
+            // better than JSON.stringify(), because it formats + filters $$hashKey etc.
+            return angular.toJson(object, true);
+        }
+        
+        // push() if faster than unshift(), and avail. in IE8 and earlier (unshift isn't)
+        ngModelCtrl.$parsers.push(fromUser);
+        ngModelCtrl.$formatters.push(toUser);
+        
+        // $watch(attrs.ngModel) wouldn't work if this directive created a new scope;
+        // see http://stackoverflow.com/questions/14693052/watch-ngmodel-from-inside-directive-using-isolate-scope how to do it then
+        scope.$watch(attrs.ngModel, function(newValue, oldValue) {
+          if (newValue != oldValue) {
+            ngModelCtrl.$setViewValue(toUser(newValue));
+            // TODO avoid this causing the focus of the input to be lost..
+            ngModelCtrl.$render();
+          }
+        }, true); // MUST use objectEquality (true) here, for some reason..
+      }
+    };  
+  });
+  </script>
+</body>
+</html>
