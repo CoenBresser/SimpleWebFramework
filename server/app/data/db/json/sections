@@ -1,0 +1,17 @@
+10
+sculptures149
+O:8:"stdClass":3:{s:2:"id";s:10:"sculptures";s:4:"type";s:5:"basic";s:5:"style";O:8:"stdClass":2:{s:5:"width";s:5:"450px";s:6:"height";s:5:"300px";}}7
+contact153
+O:8:"stdClass":3:{s:2:"id";s:7:"contact";s:4:"type";s:12:"feedbackForm";s:5:"style";O:8:"stdClass":2:{s:5:"width";s:5:"300px";s:6:"height";s:5:"450px";}}12
+passepartout161
+O:8:"stdClass":3:{s:2:"id";s:12:"passepartout";s:4:"type";s:14:"workgroupEntry";s:5:"style";O:8:"stdClass":2:{s:5:"width";s:5:"750px";s:6:"height";s:5:"450px";}}7
+welcome145
+O:8:"stdClass":3:{s:2:"id";s:7:"welcome";s:4:"type";s:5:"basic";s:5:"style";O:8:"stdClass":2:{s:5:"width";s:5:"900px";s:6:"height";s:5:"450px";}}9
+paintings147
+O:8:"stdClass":3:{s:2:"id";s:9:"paintings";s:4:"type";s:5:"basic";s:5:"style";O:8:"stdClass":2:{s:5:"width";s:5:"600px";s:6:"height";s:5:"600px";}}12
+glassObjects151
+O:8:"stdClass":3:{s:2:"id";s:12:"glassObjects";s:4:"type";s:5:"basic";s:5:"style";O:8:"stdClass":2:{s:5:"width";s:5:"450px";s:6:"height";s:5:"300px";}}7
+aboutMe145
+O:8:"stdClass":3:{s:2:"id";s:7:"aboutMe";s:4:"type";s:5:"basic";s:5:"style";O:8:"stdClass":2:{s:5:"width";s:5:"600px";s:6:"height";s:5:"450px";}}7
+gallery147
+O:8:"stdClass":3:{s:2:"id";s:7:"gallery";s:4:"type";s:7:"gallery";s:5:"style";O:8:"stdClass":2:{s:5:"width";s:5:"750px";s:6:"height";s:5:"450px";}}

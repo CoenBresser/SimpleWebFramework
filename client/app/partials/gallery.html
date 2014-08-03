@@ -4,7 +4,7 @@
     ng-swipe-right="showPrev()" 
     ng-swipe-left="showNext()" 
     ng-show="isActive($index)" 
-    ng-src="http://www.joke-schilderijen.nl/new/plugins/gallery/images/{{work.file}}" />
+    ng-src="data/v2.0/works/{{work.file}}" />
 
   <!-- prev / next controls -->
   <a class="arrow prev" ng-click="showPrev()"></a>
@@ -13,7 +13,7 @@
   <!-- extra navigation controls -->
   <ul class="nav">
     <li ng-repeat="work in works" ng-class="{'active':isActive($index)}">
-      <img ng-src="http://www.joke-schilderijen.nl/new/plugins/gallery/images/{{work.file}}" alt="{{work.description}}" title="{{work.description}}" ng-click="showWork($index);" />
+      <img ng-src="data/v2.0/works/{{work.file}}" alt="{{work.description}}" title="{{work.description}}" ng-click="showWork($index);" />
     </li>
   </ul>
 </div>

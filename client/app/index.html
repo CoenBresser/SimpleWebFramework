@@ -6,12 +6,21 @@
   <!-- TODO: i.o. reset use and fix bootstrap: link rel="stylesheet" href="css/bootstrap.min.css"/ -->
   <link rel="stylesheet" href="css/reset.css"/>
   <link rel="stylesheet" href="css/app.css"/>
+  <script type="text/javascript">
+    if(!window.console) {
+      console={};
+      console.log = function(){};
+      console.debug = function(){};
+      console.error = function(){};
+      console.info = function(){};
+    }
+  </script>
 </head>
 <body>
 
   <header>
     <h1>Joke Bresser-Aarsen</h1>
-    <div class="loginIndicator" title="Inloggen" ng-click="handleClick()" ng-controller="loginController" ></div>
+    <div class="configurationPanel" ng-controller="configurationController" ng-include="'partials/configPanel.html'"></div>
   </header>
   
   <div ng-view></div>

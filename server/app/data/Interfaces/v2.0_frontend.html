@@ -47,8 +47,15 @@
     a{color:#70a23e;}
     header,footer{padding: 30px 0;text-align:center;}
     td{padding: 0 2px;}
+    .drop-box {background: #F8F8F8;border: 5px dashed #DDD;width: 200px;height: 65px;text-align: center;padding-top: 35px;}
+    .drop-box.dragover {border: 5px dashed blue;}
+    .drop-box.dragover-err {border: 5px dashed red;}
   </style>
+  <!-- file upload directive 1 -->
+  <script>!function(){function a(a){if(!a.__listeners){a.upload||(a.upload={}),a.__listeners=[];var b=a.upload.addEventListener;a.upload.addEventListener=function(c,d){a.__listeners[c]=d,b&&b.apply(this,arguments)}}}var b=function(){try{var a=new ActiveXObject("ShockwaveFlash.ShockwaveFlash");if(a)return!0}catch(b){if(void 0!=navigator.mimeTypes["application/x-shockwave-flash"])return!0}return!1},c=function(a,b){window.XMLHttpRequest.prototype[a]=b(window.XMLHttpRequest.prototype[a])};if(window.XMLHttpRequest&&(!window.FormData||window.FileAPI&&FileAPI.forceLoad?(c("open",function(b){return function(c,d,e){a(this),this.__url=d;try{b.apply(this,[c,d,e])}catch(f){f.message.indexOf("Access is denied")>-1&&b.apply(this,[c,"_fix_for_ie_crossdomain__",e])}}}),c("getResponseHeader",function(a){return function(b){return this.__fileApiXHR?this.__fileApiXHR.getResponseHeader(b):a.apply(this,[b])}}),c("getAllResponseHeaders",function(a){return function(){return this.__fileApiXHR?this.__fileApiXHR.abort():null==a?null:a.apply(this)}}),c("abort",function(a){return function(){return this.__fileApiXHR?this.__fileApiXHR.abort():null==a?null:a.apply(this)}}),c("setRequestHeader",function(b){return function(c,d){if("__setXHR_"===c){a(this);var e=d(this);e instanceof Function&&e(this)}else this.__requestHeaders=this.__requestHeaders||{},this.__requestHeaders[c]=d,b.apply(this,arguments)}}),c("send",function(a){return function(){var c=this;if(arguments[0]&&arguments[0].__isShim){var d=arguments[0],e={url:c.__url,complete:function(a,b){!a&&c.__listeners.load&&c.__listeners.load({type:"load",loaded:c.__loaded,total:c.__total,target:c,lengthComputable:!0}),!a&&c.__listeners.loadend&&c.__listeners.loadend({type:"loadend",loaded:c.__loaded,total:c.__total,target:c,lengthComputable:!0}),"abort"===a&&c.__listeners.abort&&c.__listeners.abort({type:"abort",loaded:c.__loaded,total:c.__total,target:c,lengthComputable:!0}),void 0!==b.status&&Object.defineProperty(c,"status",{get:function(){return b.status}}),void 0!==b.statusText&&Object.defineProperty(c,"statusText",{get:function(){return b.statusText}}),Object.defineProperty(c,"readyState",{get:function(){return 4}}),void 0!==b.response&&Object.defineProperty(c,"response",{get:function(){return b.response}}),Object.defineProperty(c,"responseText",{get:function(){return b.responseText}}),Object.defineProperty(c,"response",{get:function(){return b.responseText}}),c.__fileApiXHR=b,c.onreadystatechange()},fileprogress:function(a){a.target=c,c.__listeners.progress&&c.__listeners.progress(a),c.__total=a.total,c.__loaded=a.loaded},headers:c.__requestHeaders};e.data={},e.files={};for(var f=0;f<d.data.length;f++){var g=d.data[f];null!=g.val&&null!=g.val.name&&null!=g.val.size&&null!=g.val.type?e.files[g.key]=g.val:e.data[g.key]=g.val}setTimeout(function(){if(!b())throw'Adode Flash Player need to be installed. To check ahead use "FileAPI.hasFlash"';c.__fileApiXHR=FileAPI.upload(e)},1)}else a.apply(c,arguments)}})):c("setRequestHeader",function(a){return function(b,c){if("__setXHR_"===b){var d=c(this);d instanceof Function&&d(this)}else a.apply(this,arguments)}}),window.XMLHttpRequest.__isShim=!0),!window.FormData||window.FileAPI&&FileAPI.forceLoad){var d=function(a){if(!b())throw'Adode Flash Player need to be installed. To check ahead use "FileAPI.hasFlash"';var c=angular.element(a);if(!c.hasClass("js-fileapi-wrapper")&&(null!=a.getAttribute("ng-file-select")||null!=a.getAttribute("data-ng-file-select")))if(FileAPI.wrapInsideDiv){var d=document.createElement("div");d.innerHTML='<div class="js-fileapi-wrapper" style="position:relative; overflow:hidden"></div>',d=d.firstChild;var e=a.parentNode;e.insertBefore(d,a),e.removeChild(a),d.appendChild(a)}else c.addClass("js-fileapi-wrapper")},e=function(a){return function(b){for(var c=FileAPI.getFiles(b),d=0;d<c.length;d++)void 0===c[d].size&&(c[d].size=0),void 0===c[d].name&&(c[d].name="file"),void 0===c[d].type&&(c[d].type="undefined");b.target||(b.target={}),b.target.files=c,b.target.files!=c&&(b.__files_=c),(b.__files_||b.target.files).item=function(a){return(b.__files_||b.target.files)[a]||null},a(b)}},f=function(a,b){return("change"===b.toLowerCase()||"onchange"===b.toLowerCase())&&"file"==a.getAttribute("type")};HTMLInputElement.prototype.addEventListener&&(HTMLInputElement.prototype.addEventListener=function(a){return function(b,c,g,h){f(this,b)?(d(this),a.apply(this,[b,e(c),g,h])):a.apply(this,[b,c,g,h])}}(HTMLInputElement.prototype.addEventListener)),HTMLInputElement.prototype.attachEvent&&(HTMLInputElement.prototype.attachEvent=function(a){return function(b,c){f(this,b)?(d(this),a.apply(this,[b,e(c)])):a.apply(this,[b,c])}}(HTMLInputElement.prototype.attachEvent)),window.FormData=FormData=function(){return{append:function(a,b,c){this.data.push({key:a,val:b,name:c})},data:[],__isShim:!0}},function(){if(window.FileAPI||(window.FileAPI={}),FileAPI.forceLoad&&(FileAPI.html5=!1),!FileAPI.upload){var a,c,d,e,f,g=document.createElement("script"),h=document.getElementsByTagName("script");if(window.FileAPI.jsUrl)a=window.FileAPI.jsUrl;else if(window.FileAPI.jsPath)c=window.FileAPI.jsPath;else for(d=0;d<h.length;d++)if(f=h[d].src,e=f.indexOf("angular-file-upload-shim.js"),-1==e&&(e=f.indexOf("angular-file-upload-shim.min.js")),e>-1){c=f.substring(0,e);break}null==FileAPI.staticPath&&(FileAPI.staticPath=c),g.setAttribute("src",a||c+"FileAPI.min.js"),document.getElementsByTagName("head")[0].appendChild(g),FileAPI.hasFlash=b()}}()}window.FileReader||(window.FileReader=function(){function a(a,c){var d={type:a,target:b,loaded:c.loaded,total:c.total,error:c.error};return null!=c.result&&(d.target.result=c.result),d}var b=this,c=!1;this.listeners={},this.addEventListener=function(a,c){b.listeners[a]=b.listeners[a]||[],b.listeners[a].push(c)},this.removeEventListener=function(a,c){b.listeners[a]&&b.listeners[a].splice(b.listeners[a].indexOf(c),1)},this.dispatchEvent=function(a){var c=b.listeners[a.type];if(c)for(var d=0;d<c.length;d++)c[d].call(b,a)},this.onabort=this.onerror=this.onload=this.onloadstart=this.onloadend=this.onprogress=null;var d=function(d){if(c||(c=!0,b.onloadstart&&this.onloadstart(a("loadstart",d))),"load"===d.type){b.onloadend&&b.onloadend(a("loadend",d));var e=a("load",d);b.onload&&b.onload(e),b.dispatchEvent(e)}else if("progress"===d.type){var e=a("progress",d);b.onprogress&&b.onprogress(e),b.dispatchEvent(e)}else{var e=a("error",d);b.onerror&&b.onerror(e),b.dispatchEvent(e)}};this.readAsArrayBuffer=function(a){FileAPI.readAsBinaryString(a,d)},this.readAsBinaryString=function(a){FileAPI.readAsBinaryString(a,d)},this.readAsDataURL=function(a){FileAPI.readAsDataURL(a,d)},this.readAsText=function(a){FileAPI.readAsText(a,d)}})}();</script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+  <!-- file upload directive 2 -->
+  <script>!function(){var a=angular.module("angularFileUpload",[]);a.service("$upload",["$http","$q","$timeout",function(a,b,c){function d(d){d.method=d.method||"POST",d.headers=d.headers||{},d.transformRequest=d.transformRequest||function(b,c){return window.ArrayBuffer&&b instanceof window.ArrayBuffer?b:a.defaults.transformRequest[0](b,c)};var e=b.defer();window.XMLHttpRequest.__isShim&&(d.headers.__setXHR_=function(){return function(a){a&&(d.__XHR=a,d.xhrFn&&d.xhrFn(a),a.upload.addEventListener("progress",function(a){e.notify(a)},!1),a.upload.addEventListener("load",function(a){a.lengthComputable&&e.notify(a)},!1))}}),a(d).then(function(a){e.resolve(a)},function(a){e.reject(a)},function(a){e.notify(a)});var f=e.promise;return f.success=function(a){return f.then(function(b){a(b.data,b.status,b.headers,d)}),f},f.error=function(a){return f.then(null,function(b){a(b.data,b.status,b.headers,d)}),f},f.progress=function(a){return f.then(null,null,function(b){a(b)}),f},f.abort=function(){return d.__XHR&&c(function(){d.__XHR.abort()}),f},f.xhr=function(a){return d.xhrFn=function(b){return function(){b&&b.apply(f,arguments),a.apply(f,arguments)}}(d.xhrFn),f},f}this.upload=function(b){b.headers=b.headers||{},b.headers["Content-Type"]=void 0,b.transformRequest=b.transformRequest||a.defaults.transformRequest;var c=new FormData,e=b.transformRequest,f=b.data;return b.transformRequest=function(a,c){if(f)if(b.formDataAppender)for(var d in f){var g=f[d];b.formDataAppender(a,d,g)}else for(var d in f){var g=f[d];if("function"==typeof e)g=e(g,c);else for(var h=0;h<e.length;h++){var i=e[h];"function"==typeof i&&(g=i(g,c))}a.append(d,g)}if(null!=b.file){var j=b.fileFormDataName||"file";if("[object Array]"===Object.prototype.toString.call(b.file))for(var k="[object String]"===Object.prototype.toString.call(j),h=0;h<b.file.length;h++)a.append(k?j:j[h],b.file[h],b.fileName&&b.fileName[h]||b.file[h].name);else a.append(j,b.file,b.fileName||b.file.name)}return a},b.data=c,d(b)},this.http=function(a){return d(a)}}]),a.directive("ngFileSelect",["$parse","$timeout",function(a,b){return function(c,d,e){var f=a(e.ngFileSelect);if("input"!==d[0].tagName.toLowerCase()||"file"!==(d.attr("type")&&d.attr("type").toLowerCase())){for(var g=angular.element('<input type="file">'),h=0;h<d[0].attributes.length;h++)g.attr(d[0].attributes[h].name,d[0].attributes[h].value);d.attr("data-multiple")&&g.attr("multiple","true"),g.css("top",0).css("bottom",0).css("left",0).css("right",0).css("width","100%").css("opacity",0).css("position","absolute").css("filter","alpha(opacity=0)"),d.append(g),(""===d.css("position")||"static"===d.css("position"))&&d.css("position","relative"),d=g}d.bind("change",function(a){var d,e,g=[];if(d=a.__files_||a.target.files,null!=d)for(e=0;e<d.length;e++)g.push(d.item(e));b(function(){f(c,{$files:g,$event:a})})})}}]),a.directive("ngFileDropAvailable",["$parse","$timeout",function(a,b){return function(c,d,e){if("draggable"in document.createElement("span")){var f=a(e.ngFileDropAvailable);b(function(){f(c)})}}}]),a.directive("ngFileDrop",["$parse","$timeout","$location",function(a,b,c){return function(d,e,f){function g(a){return/^[\000-\177]*$/.test(a)}function h(a,d){var e=[],f=a.dataTransfer.items;if(f&&f.length>0&&f[0].webkitGetAsEntry&&"file"!=c.protocol()&&f[0].webkitGetAsEntry().isDirectory)for(var h=0;h<f.length;h++){var j=f[h].webkitGetAsEntry();null!=j&&(g(j.name)?i(e,j):e.push(f[h].getAsFile()))}else{var k=a.dataTransfer.files;if(null!=k)for(var h=0;h<k.length;h++)e.push(k.item(h))}!function m(a){b(function(){l?m(10):d(e)},a||0)}()}function i(a,b){if(null!=b)if(b.isDirectory){var c=b.createReader();l++,c.readEntries(function(b){for(var c=0;c<b.length;c++)i(a,b[c]);l--})}else l++,b.file(function(b){l--,a.push(b)})}if("draggable"in document.createElement("span")){var j=null;e[0].addEventListener("dragover",function(c){if(c.stopPropagation(),c.preventDefault(),b.cancel(j),!e[0].__drag_over_class_)if(f.ngFileDragOverClass.search(/\) *$/)>-1){dragOverClassFn=a(f.ngFileDragOverClass);var g=dragOverClassFn(d,{$event:c});e[0].__drag_over_class_=g}else e[0].__drag_over_class_=f.ngFileDragOverClass||"dragover";e.addClass(e[0].__drag_over_class_)},!1),e[0].addEventListener("dragenter",function(a){a.stopPropagation(),a.preventDefault()},!1),e[0].addEventListener("dragleave",function(){j=b(function(){e.removeClass(e[0].__drag_over_class_),e[0].__drag_over_class_=null},f.ngFileDragOverDelay||1)},!1);var k=a(f.ngFileDrop);e[0].addEventListener("drop",function(a){a.stopPropagation(),a.preventDefault(),e.removeClass(e[0].__drag_over_class_),e[0].__drag_over_class_=null,h(a,function(b){k(d,{$files:b,$event:a})})},!1);var l=0}}}])}();</script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-resource.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.js"></script>
   <script type="text/ng-template" id="partials/dbList.html">
@@ -56,22 +63,36 @@
     <table>
       <tr>
         <th>Name</th>
+        <th>Type</th>
+        <th>Permissions<br/>read, list, search, write</th>
         <th></th>
       </tr>
-      <tr ng-repeat="db in dbList | orderBy:'name'">
-        <td>{{db.name}}</td>
+      <tr ng-repeat="db in dbList | orderBy:'id' | filter:{type:'!config'}">
+        <td>{{db.id}}</td>
+        <td>{{db.type}}</td>
+        <td>{{db.permissions.read}}, {{db.permissions.list}}, {{db.permissions.search}}, {{db.permissions.write}}</td>
         <td>
-          <img ng-click="delete(db)" style="cursor: pointer; width: 16px; height: 16px; vertical-align: middle;" alt="delete" title="delete" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACX0lEQVRYR+2XUW7TQBCGZxxTHipoJHiohKCu2gPkAKSqewI4Ac0RcoHE7QUoJ2hvQLlAbBHeGw4ARPCARIswvFLtMOtmjb1Z2+vaeQI/JrP7f/vvzswuQsW3H4Q9RDdExG5VbPZ/IooR4NVk3A/KxnFM8Xdb8fyMdD4Z9Z8XqRQC6OJEMONVDe1coC6iM0aEnowXQgyiYO/MNNYIYFo5AUXhqO/bAQDwHAxx54IhPB5zNhk9HVgBFNleF0CK+cfTEAH3y8bmHCjb85UDVB24lQJUiUs7VwZgI75SAP9o+sOqyBAdVRUV/ZRbHcKD43eUrJDzHJBiY6oImk2CPcsa8HeGWgBCkB8F/cg2z23i/gP8Gw583fQ8d809RKL5wy8fcg3H5IAejyoLbnMI5WRrdzsXAOldYfbr57W/Hc+TbFIAqht+e+T1Om4nVPFc3M4bAVw+2Q0chLGWESnEQfD2pQB4L1uxLq7GNAK4erxziA6eGlIy50SROFefuBGAFP6+tctbcHPxMDmxvg5e1vZsDAkaNAb41PW69zdc3lczBK+SLyTL90kpLg9tYwC5ogqIJWuUuPyjFYA6EFnxVgGsIEgMH3z+eJK1pDUH5KTFpz2VzGVHqw5YiCuKHEQrDtQQX4JoDFAqznsO6LwoqxMpAD9fTureegy9IN1sddrLUnTRC6avORufJSMZQgC+MVQ17afrOAr8WUEvAD3VyiDQ9lacK6GLZ5qpF+jiapwZInlBJ++4nuO43NUWTlRbwGb93mYX5ldbO8nzSzYWEjDU7wTZqSTEvY3OKcez4zfxfwCpBCLK1uBvpwAAAABJRU5ErkJggg==" />
+          <img ng-click="delete(db)" style="cursor: pointer; width: 16px; height: 16px; vertical-align: middle;" alt="drop" title="drop" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADPUlEQVRYR7WXz08TQRTH5+1uSxNQS+RgYoxL/FVv/QNEu/wFcPQE3MAL9igHupAYw6l4ULjpjWPxH6CNeLc34KBs9GBiNKyIqaF0njNTZt0u291ZaPe6773vZ+fN+7FAEjwFu5oFSFUBSD6BG0FEFwA2KW0Wa7bl+n1BNdB5xf3xEUkdsWn5IZQAwsQpRUsVXtPIPCEwIewRl7ZKY7b0jQXo9uVbiw9iff2A1vJ2FQgUkGCtujjmwUcGiTr2pADjS9s2ASgpA8TlvK8AceL8aPsGoCLeNwBV8b4ByJsaV17BixRnz98X7PfToMEUUKxv2Q+LoWU4vvwB26VKHALohAVmpeTIjnb06k6egFFAwKwKBLdhZec0CakNz+2K+B1lKAGCzSIY/KBsZlOZTJm112lV4aAdUlIcerKzei6Ao/V7ZSDa0/OKS78WbU0mBjhYy5lpgH2RKkLqzUbDGi46HQMmCkykTTdYVyRZdtJOBwAPbhBiRgUAhDxopMxtjhFHZS6TnMbh67sTmqaXmHheAHAq0PQKa5WR4kGRwdkd+HbNNI20MQ3sa0a+fnobB+K3Tz/TXRDiuvExzjHs/aHdGE0P6MwXZBXUD3+dWKNueEq+XzfzuqFXpT0r5004WsuxBQMKIqfsZrKSqqvAAG25jRWc0ICUAvahEEFx6QN/1u+L2qdsTl+a27VVxKXNjxu3eHN5E+LTAdFNnH2y6wewGEAtCQC3/XnzNk9f2IomIAYHiek/dn98pDhzYYD9rJm9fMVgeQ2HYF/JLrZ3Rzx9Lp5ZSD26MACPGANx5lA9cdZJewKQBIKLDyykHA2AnxrpGYASBNLi1S+fV3+v5Qp9Aeh+270siIs58iKT7zmAgrikqGuTMJPKtedBT1KQQPw/xGOjmDKhcmGASHGWcwLaVLcS1RiEB4CErg7N7nmrkkpD4oMlMAs66pwPp6gSFbOAteIK8xK/TRwCEd6piEfMAjZT2qUm45zstVxaQd6yz3RMMQ29BUFF+dSGLyN/nx+/DM4Cf5OR4Zit23Rwkm6c8D3CB8FmATc6Hcl8qrV/IBUfvlIdr7Tm+T8fHyx8mor2GrIrSojWRpPbM522/T+55wI9Co3ieQAAAABJRU5ErkJggg==" />
         </td>
-        <td><a ng-href="#/edit/{{db.name}}">
-          <img style="width: 16px; height: 16px; vertical-align: middle;" alt="edit" title="edit" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACfElEQVRYR7WXXW7aQBDHZ1ZUfakijuCXFqQKxAFKhDlBcgPyVoVITS8ANhcglaqqb9AThFwArND3+qGVkPpQbhArbaSkEZ7OunEErj/Wa3dfEPLu/n8zOzM7i5AxOtaihVhZIGI1a+72dyLyEODdfNi20tbxnOShK767I83mg/ZhkkoiQFScCFy26q2aF6iKKIaI0JLzfd8/cqz9adzaWIA4ywnIWQzaphoAAO/BEE++MITBa6bzwasjJYAkt+cFkGLmaLlAwE7a2h0PpJ25LgAQVonuTccyvXr9tQGVivQIrL6+d+TvI0BWwOkAdK3LsQ8bW4rXGv0xZ9JpeAy839rf0GEAkCUu5+gAhGIvGv2JQOxFY4CD2kEV8SIASeIhDJr28kqpyBDZWUUlamGWeBAD3dFnCizkPAckLzZVfHLn1r5iDfi7g4p4cAQhgO8TR2o7iMyiQ0kcyL27vjFLB8gjvl5PvVIB8orvxEDRI9ARLw1AV7wUgCLihQHqzROLNxmmZQ1X0CDaZcDFpniRNKw1T664lid2SlniZXggKGJxY1u8Y10ecEMyK80D4bVKAs7jPLAtzh6e8H8jqZnRqgPyamVrWgj0CVBMti3bEefrGIQ4TW1I8saAYfSqT/ee/ZCW+0RT7vguEMSbBwj37ueNHQacUkeUFyAa+bKxwN8bc7X6uI6e8X8BqDX7bD0aHH0e32Yzcb+x48QlTOkA9cZxj1CM5YPj9vrXWVJuh54oHeD5y+PW928fXNXrunQAVWEtD/Dz5Sxv15MGpPww6Y6W59yZHQSbMYQPeJHX0n/n53iaqXbF+lAKj1MJIUSFb7UHT+irPa5UfZ7/AbpqK1dQR4kjAAAAAElFTkSuQmCC" />
+        <td><a ng-href="#/edit/{{db.id}}">
+          <img style="width: 16px; height: 16px; vertical-align: middle;" alt="edit" title="edit" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACYElEQVRYR+2Xv2/TQBTH37OvKIggpexIZqgIW/4AItn9B4C/oGVr6QD5Bxqn/0C6oHRD/AUJQ9faouzN1iKGWu3SLZEaFmL7cXetI9ek8Z1JOuWmSHk/Pve99+6eETSW7XoVxBUPEWoabkBEQ0TsxfG44bvOMO2LqoGKJk/HJ4I+0dhJQygBTEsex+SowhsGfATAt9KeqHXUrLuJby7AfTs/2n2d65sGdPaOPQS0Ccj3dusT+JlBZsmuC7DeOnYBsSnqwWvWV3MVyDvzogAicdp3qgJ5ybNBVGohUSAXQCX5wgBUky8MIKnUPEmzlZxnL/633e+baOCG+H1vF6zv/aCbVoUAkIJpgXkrBcmNNvq8VgNkNiFVVCCEDS+6YAzgr26fyfh3ijAByF4W2eCDtlVZKZXa/HrdVE2ctaMYGuUPp/uFAEYHL9sIxqeiyRO/KI7eaQMMOlXrEeK5PCqA/vhZ+J49Vj8CuGKAEXZ54gpXOrgDIIIzAGvWzpCwhga0hc0fohfseXjCj0K5BvhN6OMl+8p9vkxqQBQTGmaXX5Uzk2fBnmyd4uhwTRauzqIL0zEQPQkgk5vsRCdAYjsfgE6VDxhoyzPllclbqq8K83T7zP9vBX4fvJISxvyd5gFd1eSJ3TwBHLGjhQOIqejSbExqIKVAIYDBoVVjMVPugjAMA3ZVsuYGoKuYsL/uVO0lwFKBpQL/KEAQ75e3fjaKtJWuT3qeQH4RdXkA+dkkIIjwm25AHXtEepMaZnryNQST8c8mPiA84OIP0BCi0JEDye2T3EyUeACOHkVhq7zzq/8Xmz96n0BrRBMAAAAASUVORK5CYII=" />
         </a></td>
-        <td><a ng-href="{{db.name}}">
+        <td><a ng-href="{{db.id}}">
           <img style="width: 16px; height: 16px; vertical-align: middle;" alt="dump" title="get all data" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAD9ElEQVRYR6VXSUwTURh+/7RsgqReTDjZuoQagZSDZ9oDiZ6Ei0dtEzUITaCJS+IFejFxSQoJIFGTVo9eqCdMPLScPdAAxhKX1hOJFxsWodDO83/Tvul0Zto3LXObt/zf9+//A9LA54wOe2ySPQFAHGbXKCW5olzwZQOfU1bFguiguy/opUCngdB3hQeZSQLEU/cOJSn7S9ccJXAbKITTm/PJeudrEnA6/Y62011R1HZEESATX+HRz4SIMNu3P7/gIxJRzqJV4vndvUA2G8uZ3TUlcOnKuEeySQncVExNCcnJRdlHH2fWrBCAZ65Bs/vfvy4aXGMg4O4f9xOQohyIUjqb390PMw0uvr+OXMTfj1srULJg5zQATKk3qBxIbyzGtBKqCDDNbTapoqXuQiMEOIheoWJRHtRaQiWgMO7uynCzy9f+hIt9O0PVbMEr1p+5jFYFnm2ze1X6dHaauzO/s+fiMaES6O0PLqsBh5ofP/w1BAT8VgBFZ5BQrOXF+VXuWhaYWxvzo+yeQoClWiVq6ezWxkLIGfU67FJHQph2YvRUQT7A2pDM9fZPRNSYwKxiKaoQwA0sLuBl0a41z4lJYE3g4AxH62YM7iQq6gO3e8xJWu2ZsiLh9Pr8jFappknowNWgHAgy+Uo8kKOCC3oHJqbQ1xG+kE4vZfVW/fDa43nS1hO17A4Ef5rfDty8lzLkvVZhjI0Q8ODDn9TW+sKgHnzvlRvrAkS+0LbRu6d6IkISCP7m33boKuSXsQyGuu6nY3qZqPQaKu1hwcgsgKkHTlZwWPDpD+8vXV7GtREWH0ISGvByOsc7x74p0a79eDCi0llwDwSV6sbMgRaYNSGgVr+6JIzgiigkYKi2WrerBFizMetcaIGq8stJ3OnsmUTJSqPCtfjb/e05ZnZeyLgiZgS0ad8wAS5YpjS8YmuPDxcPc3ZC/BJAKbJ1n2UCVlxgBiBaE7rAahCKgGrsi4PQShpilVTbcyNEMLMCVtJQWIiwFiilukHwJIL79HcMhUhUipmAvxGno6WjQ23VIiIsU44PDlxnQlnDGIZpP4P3K6WYCavVjLRACon2dmzZ9S3Bmszx4eGoGbhpM2IgZu24lpasNCOJG7hfGlYrXxzBP5r5nB+p2Y5LVqgeSPSzm8json3taGYYSNhl/Uimn91EAPX2tbOmfuZoaChthoTloZQLrzeWN0KgqbGcA5g9TNBUczjBxMwGFi2xclr70dSsWVU9bCw9TLgww9OsvMEGF2x/SRxMfoMMysRDJerBtXO45mWDhpZQU0+zKo3447SJSniix6ne38y0tNU2QigMEaAeNkVVaYrTDe6lcG8Vjopxkav43f8G8YNv4C101wAAAABJRU5ErkJggg==" />
         </a></td>
       </tr>
       <tr>
-        <td><input type="text" name="newDb" placeholder="Add a new database" ng-model="newDbName" ng-enter="addNew()"></td>
+        <td><input type="text" name="newDb.id" style="width:100px" placeholder="Name" ng-model="newDb.id" /></td>
+        <td><input type="text" list="dbTypes" name="newDb.type" style="width:100px" placeholder="Type" ng-model="newDb.type" /><datalist id="dbTypes"><option value="json"><option value="binary"></datalist></td>
+        <td>
+          <input type="number" name="newDb.permissions.read" style="width:30px" ng-model="newDb.permissions.read" />
+          <input type="number" name="newDb.permissions.list" style="width:30px" ng-model="newDb.permissions.list" />
+          <input type="number" name="newDb.permissions.search" style="width:30px" ng-model="newDb.permissions.search" />
+          <input type="number" name="newDb.permissions.write" style="width:30px" ng-model="newDb.permissions.write" />
+        </td>
+        <td><a ng-href="#" ng-click="addNew()">
+          <img style="width: 16px; height: 16px; vertical-align: middle;" alt="add" title="add" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADTElEQVRYR82Wz08TURDH3+wWQiIm5T+oBmI1MekfwI8uifEI3PxBYjlYQGOgiWe65R8oF1LUgxy8U09GMbSCB28WL6CSuAcunqiCAWm747xXtuxutt3XFaLv1O6+N9/PzM7MG2BtrLheCAN0FABYrI1jDBHLAJA3zUqqqGtl+1mQNRRU3G4fkZUQK5odQgrAS9w0UZOFVxQ2wxiMiv2ImbX0gG6d9QVo5vnaXL/vWTugNr9RAAZxZFgszA004FsaaRX2dgGGMxs6A0jzfCikB3p8I+D3zYMCcGH7Wc8I+Im7jcjkghUBXwAZ8XMDkBU/NwArU/1C6s5kv/38fVxfT4AC9/jvplUwPP8e66XKDAZoeBmmUjKsjnaw2BdjEIojYJjvvTi9rd9+nRxVFRarVo+XnxkfIlzbboeSzqgwVuyZ3hb2HUloAbibhRtkLxsJd3R1Zam9Jqx3VF7Lk72DvOXO1p9huXf/59jj75srJCIA7QtNlup+sLUQCOBg6UoWmHIiVDdrImrTfYMr5NOpGHW9pZ31IYJyRMECqZm1sbYB9nLRSCfAN+EjY6XK4aHWkzLEBTP+dlJ8wsYigBc3nur2R+KzqSHqihQVRMMBwI2HGIu4w2X/DwgxUFiWPztGvGR9S1kAvu8gF01QVJ7z3wKAU4GirlCrbCnuBrswteVwQCYC3MZ+LhpXAAoCQIiroY+tvG727mwAclEaMOpJwjOTSqokC0NlV7TvDRSBX0tXReJQFmd4HcuKe+2TBTgp41H65DNgA9DcHrlF7q4mqfZZwlFqAYnJawNNc0waQHQ4FajOz3LRrCgbgfHVpBgozlJeVIEswK1XiUioo5Oqxdbp/pKG7pyiNADXuvPmfozqtz5cei1XhIQAw3deWykHyrO7n0ptAfg5LFsFoh0rKr/M4v8EwNEJZXPAz3v+XjYC/ycAMnOhe+pzSsbTZntkI2CfJ3gO8OYiMptDIMLLIBDVo6PSo+s39xxn+UDypZBHRW0MKQA4Yhtm8uI2bAwIQZRPztBINjHZN5Sm+zlimaFnqSc76yNeExEvQ1araqfzgBriXa55jfvA8ekoebl/QlH4PQ9h3gNmdzcz137/EPe+a+WxVs10P/xa+gPbgQWmDUH2GgAAAABJRU5ErkJggg==" />
+        </a></td>
       </tr>
     </table>
     <p></p>
@@ -92,7 +113,7 @@
     <h2>Editing database "{{dbId}}".</h2>
     <!--<img style="height: 16px; width: auto; vertical-align: middle;" alt="edit" title="Edit the full content" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACfElEQVRYR7WXXW7aQBDHZ1ZUfakijuCXFqQKxAFKhDlBcgPyVoVITS8ANhcglaqqb9AThFwArND3+qGVkPpQbhArbaSkEZ7OunEErj/Wa3dfEPLu/n8zOzM7i5AxOtaihVhZIGI1a+72dyLyEODdfNi20tbxnOShK767I83mg/ZhkkoiQFScCFy26q2aF6iKKIaI0JLzfd8/cqz9adzaWIA4ywnIWQzaphoAAO/BEE++MITBa6bzwasjJYAkt+cFkGLmaLlAwE7a2h0PpJ25LgAQVonuTccyvXr9tQGVivQIrL6+d+TvI0BWwOkAdK3LsQ8bW4rXGv0xZ9JpeAy839rf0GEAkCUu5+gAhGIvGv2JQOxFY4CD2kEV8SIASeIhDJr28kqpyBDZWUUlamGWeBAD3dFnCizkPAckLzZVfHLn1r5iDfi7g4p4cAQhgO8TR2o7iMyiQ0kcyL27vjFLB8gjvl5PvVIB8orvxEDRI9ARLw1AV7wUgCLihQHqzROLNxmmZQ1X0CDaZcDFpniRNKw1T664lid2SlniZXggKGJxY1u8Y10ecEMyK80D4bVKAs7jPLAtzh6e8H8jqZnRqgPyamVrWgj0CVBMti3bEefrGIQ4TW1I8saAYfSqT/ee/ZCW+0RT7vguEMSbBwj37ueNHQacUkeUFyAa+bKxwN8bc7X6uI6e8X8BqDX7bD0aHH0e32Yzcb+x48QlTOkA9cZxj1CM5YPj9vrXWVJuh54oHeD5y+PW928fXNXrunQAVWEtD/Dz5Sxv15MGpPww6Y6W59yZHQSbMYQPeJHX0n/n53iaqXbF+lAKj1MJIUSFb7UHT+irPa5UfZ7/AbpqK1dQR4kjAAAAAElFTkSuQmCC" />
     <img style="height: 16px; width: auto; vertical-align: middle;" alt="empty" title="Empty the database" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACX0lEQVRYR+2XUW7TQBCGZxxTHipoJHiohKCu2gPkAKSqewI4Ac0RcoHE7QUoJ2hvQLlAbBHeGw4ARPCARIswvFLtMOtmjb1Z2+vaeQI/JrP7f/vvzswuQsW3H4Q9RDdExG5VbPZ/IooR4NVk3A/KxnFM8Xdb8fyMdD4Z9Z8XqRQC6OJEMONVDe1coC6iM0aEnowXQgyiYO/MNNYIYFo5AUXhqO/bAQDwHAxx54IhPB5zNhk9HVgBFNleF0CK+cfTEAH3y8bmHCjb85UDVB24lQJUiUs7VwZgI75SAP9o+sOqyBAdVRUV/ZRbHcKD43eUrJDzHJBiY6oImk2CPcsa8HeGWgBCkB8F/cg2z23i/gP8Gw583fQ8d809RKL5wy8fcg3H5IAejyoLbnMI5WRrdzsXAOldYfbr57W/Hc+TbFIAqht+e+T1Om4nVPFc3M4bAVw+2Q0chLGWESnEQfD2pQB4L1uxLq7GNAK4erxziA6eGlIy50SROFefuBGAFP6+tctbcHPxMDmxvg5e1vZsDAkaNAb41PW69zdc3lczBK+SLyTL90kpLg9tYwC5ogqIJWuUuPyjFYA6EFnxVgGsIEgMH3z+eJK1pDUH5KTFpz2VzGVHqw5YiCuKHEQrDtQQX4JoDFAqznsO6LwoqxMpAD9fTureegy9IN1sddrLUnTRC6avORufJSMZQgC+MVQ17afrOAr8WUEvAD3VyiDQ9lacK6GLZ5qpF+jiapwZInlBJ++4nuO43NUWTlRbwGb93mYX5ldbO8nzSzYWEjDU7wTZqSTEvY3OKcez4zfxfwCpBCLK1uBvpwAAAABJRU5ErkJggg==" /> -->
-    <input type="text" name="newItem" placeholder="Add a new entry" ng-model="newItem" ng-enter="addNew()">
+    <!-- input type="text" name="newItem" placeholder="Add a new entry" ng-model="newItem" ng-enter="addNew()" -->
     <p></p>
     <table>
       <tr>
@@ -111,11 +132,18 @@
         <td>No data</td>
       </tr>
     </table>
+    <p></p>
+    <h2>Add item(s) to "{{db.id}}"</h2>
+    <textarea ng-hide="db.type !== 'json'" json style="width: 100%; height: 200px;" placeholder="Add a new entry" ng-model="newItem"></textarea>
+    <input ng-hide="db.type !== 'json'" type="button" ng-click="addNew()" value="Add item(s)"></input>
+    <div ng-hide="db.type !== 'binary'" class="drop-box" ng-file-drop="onFileSelect($files)" ng-file-drag-over-class="dragover" >drop file(s) here</div>
   </script>
   <script type="text/ng-template" id="partials/itemEdit.html">
     <h2>Editing item "{{itemId}}" in database "{{dbId}}".</h2>
-    <textarea json style="width: 100%; height: 200px;" ng-model="item"></textarea>
-    <input type="button" ng-click="save()" value="Ok"></input>
+    <textarea ng-hide="db.type !== 'json'" json style="width: 100%; height: 200px;" ng-model="item"></textarea>
+    <input ng-hide="db.type !== 'json'" type="button" ng-click="save()" value="Ok"></input>
+    <div ng-hide="db.type !== 'binary'" class="drop-box" ng-file-drop="onFileSelect($files)" ng-file-drag-over-class="dragover" ng-style="itemStyle">drop file(s) here</div>
+    <!-- TODO: set size (using css) based on image size info -->
     <!-- TODO: show saved info, disable/enable button on edit&save -->
   </script>
 </head>
@@ -129,7 +157,7 @@
   
   <footer>
     <a href="http://www.slimframework.com">
-      <img style="width: 50px; height: auto;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHIAAAA6CAYAAABs1g18AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABRhJREFUeNrsXY+VsjAMR98twAo6Ao4gI+gIOIKOgCPICDoCjCAjXFdgha+5C3dcv/QfFB5i8h5PD21Bfk3yS9L2VpGnlGW5kS9wJMTHNRxpmjYRy6SycgRvL18OeMQOTYQ8HvIoJKiiz43hgHkq1zvK/h6e/TyJQXeV/VyWBOSHA4C5RvtMAiCc4ZB9FPjgRI8+YuKcrySO515a1hoAY3nc4G2AH52BZsn+MjaAEwIJICKAIR889HljMCcyrR0QE4v/q/BVBQva7Q1tAczG18+x+PvIswHEAslLbfGrMZKiXEOMAMy6LwlisQCJLPFMfKdBtli5dIihRyH7A627Iaiq5sJ1ThP9xoIgSdWSNVIHYmrTQgOgRyRNqm/M5PnrFFopr3F6B41cd8whRUSufUBU5EL4U93AYRnIWimCIiSI1wAaAZpJ9bPnxx8eyI3Gt4QybwWa6T/BvbQECUMQFkhd3jSkPFgrxwcynuBaNT/u6eJIlbGOBWSNIUDFEIwPZFAtBfYrfeIOSRSXuUYCsprCXwUIZWYnmEhJFMIocMDWjn206c2EsGLCJd42aWSyBNMnHxLEq7niMrY2qyDbQUbqrrTbwUPtxN1ZZCitQV4ZSd6DyoxhmRD6OFjuRUS/KdLGRHYowJZaqYgjt9Lchmi3QYA/cXBsHK6VfWNR5jgA1DLhwfFe4HqfODBpINEECCLO47LT/+HSvSd/OCOgQ8qE0DbHQUBqpC4BkKMPYPkFY4iAJXhGAYr1qmaqQDbECCg5A2NMchzR567aA4xcRKclI405Bmt46vYD7/Gcjqfk6GP/kh1wovIDSHDfiAs/8bOCQ4cf4qMt7eH5Cucr3S0aWGFfjdLHD8EhCFvXQlSqRrY5UV2O9cfZtk77jUFMXeqzCEZqSK4ICkSin2tE12/3rbVcE41OBjBjBPSdJ1N5lfYQpIuhr8axnyIy5KvXmkYnw8VbcwtTNj7fDNCmT2kPQXA+bxpEXkB21HlnSQq0gD67jnfh5KavVJa/XQYEFSaagWwbgjNA+ywstLpEWTKgc5gwVpsyO1bTII+tA6B7BPS+0PiznuM9gPKsPVXbFdADMtwbJxSmkXWfRh6AZhyyzBjIHoDmnCGaMZAKjd5hyNJYCBGDOVcg28AXQ5atAVDO3c4dSALQnYblfa3M4kc/cyA7gMIUBQCTyl4kugIpy8yA7ACqK8Uwk30lIFGOEV3rPDAELwQkr/9YjkaCPDQhCcsrAYlF1v8W8jAEYeQDY7qn6tNGWudfq+YUEr6uq6FZzBpJMUfWFDatLHMCciw2mRC+k81qCCA1DzK4aUVfrJpxnloZWCPVnOgYy8L3GvKjE96HpweQoy7iwVQclVutLOEKJxA8gaRCjSzgNI2zhh3bQhzBCQQPIHGaHaUd96GJbZz3Smmjy16u6j3FuKyNxcBarxqWWfYFE0tVVO1Rl3t1Mb05V00MQCJ71YHpNaMcsjWAfkQvPPkaNC7LqTG7JAhGXTKYf+VDeXAX9IvURoAwtTFHvyYIxtnd5tPkywrPafcwbeSuGVwFau3b76NO7SHQrvqhfFE8kM0Wvpv8gVYiYBlxL+fW/34bgP6bIC7JR7YPDubcHCPzIp4+cum7U6NlhZgK7lua3KGLeFwE2m+HblDYWSHG2SAfINuwBBfxbJEIuWZbBH4fAExD7cvaGVyXyH0dhiAYc92z3ZDfUVv+jgb8HrHy7WVO/8BFcy9vuTz+nwADAGnOR39Yg/QkAAAAAElFTkSuQmCC" alt="Slim" title="Built with the Slim Framework"/>
+      <img style="width: 50px; height: auto;" alt="Slim" title="Backend built using the Slim Framework" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHIAAAA6CAYAAABs1g18AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABRhJREFUeNrsXY+VsjAMR98twAo6Ao4gI+gIOIKOgCPICDoCjCAjXFdgha+5C3dcv/QfFB5i8h5PD21Bfk3yS9L2VpGnlGW5kS9wJMTHNRxpmjYRy6SycgRvL18OeMQOTYQ8HvIoJKiiz43hgHkq1zvK/h6e/TyJQXeV/VyWBOSHA4C5RvtMAiCc4ZB9FPjgRI8+YuKcrySO515a1hoAY3nc4G2AH52BZsn+MjaAEwIJICKAIR889HljMCcyrR0QE4v/q/BVBQva7Q1tAczG18+x+PvIswHEAslLbfGrMZKiXEOMAMy6LwlisQCJLPFMfKdBtli5dIihRyH7A627Iaiq5sJ1ThP9xoIgSdWSNVIHYmrTQgOgRyRNqm/M5PnrFFopr3F6B41cd8whRUSufUBU5EL4U93AYRnIWimCIiSI1wAaAZpJ9bPnxx8eyI3Gt4QybwWa6T/BvbQECUMQFkhd3jSkPFgrxwcynuBaNT/u6eJIlbGOBWSNIUDFEIwPZFAtBfYrfeIOSRSXuUYCsprCXwUIZWYnmEhJFMIocMDWjn206c2EsGLCJd42aWSyBNMnHxLEq7niMrY2qyDbQUbqrrTbwUPtxN1ZZCitQV4ZSd6DyoxhmRD6OFjuRUS/KdLGRHYowJZaqYgjt9Lchmi3QYA/cXBsHK6VfWNR5jgA1DLhwfFe4HqfODBpINEECCLO47LT/+HSvSd/OCOgQ8qE0DbHQUBqpC4BkKMPYPkFY4iAJXhGAYr1qmaqQDbECCg5A2NMchzR567aA4xcRKclI405Bmt46vYD7/Gcjqfk6GP/kh1wovIDSHDfiAs/8bOCQ4cf4qMt7eH5Cucr3S0aWGFfjdLHD8EhCFvXQlSqRrY5UV2O9cfZtk77jUFMXeqzCEZqSK4ICkSin2tE12/3rbVcE41OBjBjBPSdJ1N5lfYQpIuhr8axnyIy5KvXmkYnw8VbcwtTNj7fDNCmT2kPQXA+bxpEXkB21HlnSQq0gD67jnfh5KavVJa/XQYEFSaagWwbgjNA+ywstLpEWTKgc5gwVpsyO1bTII+tA6B7BPS+0PiznuM9gPKsPVXbFdADMtwbJxSmkXWfRh6AZhyyzBjIHoDmnCGaMZAKjd5hyNJYCBGDOVcg28AXQ5atAVDO3c4dSALQnYblfa3M4kc/cyA7gMIUBQCTyl4kugIpy8yA7ACqK8Uwk30lIFGOEV3rPDAELwQkr/9YjkaCPDQhCcsrAYlF1v8W8jAEYeQDY7qn6tNGWudfq+YUEr6uq6FZzBpJMUfWFDatLHMCciw2mRC+k81qCCA1DzK4aUVfrJpxnloZWCPVnOgYy8L3GvKjE96HpweQoy7iwVQclVutLOEKJxA8gaRCjSzgNI2zhh3bQhzBCQQPIHGaHaUd96GJbZz3Smmjy16u6j3FuKyNxcBarxqWWfYFE0tVVO1Rl3t1Mb05V00MQCJ71YHpNaMcsjWAfkQvPPkaNC7LqTG7JAhGXTKYf+VDeXAX9IvURoAwtTFHvyYIxtnd5tPkywrPafcwbeSuGVwFau3b76NO7SHQrvqhfFE8kM0Wvpv8gVYiYBlxL+fW/34bgP6bIC7JR7YPDubcHCPzIp4+cum7U6NlhZgK7lua3KGLeFwE2m+HblDYWSHG2SAfINuwBBfxbJEIuWZbBH4fAExD7cvaGVyXyH0dhiAYc92z3ZDfUVv+jgb8HrHy7WVO/8BFcy9vuTz+nwADAGnOR39Yg/QkAAAAAElFTkSuQmCC"/>
     </a>
   </footer>
 
@@ -143,18 +171,22 @@ function arr_delete(item) {
     }
   }
 }
-Array.prototype.delete = arr_delete;
+if (typeof Array.prototype.delete === 'undefined') {
+  Array.prototype.delete = arr_delete;
+}
 
+function isarr(obj) {
+  return Object.toString.call(obj) === '[object Array]';
+} 
 if (typeof Array.isArray === 'undefined') {
-  Array.isArray = function(obj) {
-    return Object.toString.call(obj) === '[object Array]';
-  }
+  Array.isArray = isarr;
 };
 
 // Declare app level module which depends on filters, and services
 angular.module('myApp', [
   'ngResource',
   'ngRoute',
+  'angularFileUpload',
   'myApp.services',
   'myApp.directives',
   'myApp.controllers'
@@ -170,11 +202,10 @@ angular.module('myApp.controllers', [])
   .controller('dbListCtrl', ['$scope', 'DbList', 'JsonDb', function($scope, DbList, JsonDb) {
     $scope.dbList = DbList.query();
     $scope.addNew = function () {
-      var newDb = {name: $scope.newDbName}; 
-      DbList.add({dbId: $scope.newDbName}, newDb, function (response) { 
+      DbList.add({}, $scope.newDb, function (response) { 
         $scope.dbList.push(response);
       });
-      $scope.newDbName = "";
+      $scope.newDb = "";
     }
     $scope.delete = function (deleteDb) {
       if (confirm('Are you sure you want to delete this database?')) {
@@ -183,24 +214,35 @@ angular.module('myApp.controllers', [])
         });
       }
     }
-    $scope.runScript = null; /* location to add function() {}*/
+    $scope.runScript = null; /*function() {
+      var dbName = 'paintings';
+      JsonDb.query({dbId: dbName}, function(items) {
+        angular.forEach(items, function(value, key) {
+          console.debug('Original [' + key + ']:');
+          console.debug(value);
+          value.$save({dbId: dbName});
+        });
+      });
+    };*/
   }])
-  .controller('dbEditCtrl', ['$scope', '$routeParams', 'JsonDb', function($scope, $routeParams, JsonDb) {
+  .controller('dbEditCtrl', ['$scope', '$routeParams', 'JsonDb', 'DbList', 'BinaryDb', function($scope, $routeParams, JsonDb, DbList, BinaryDb) {
     $scope.dbId = $routeParams.dbId;
-    $scope.itemList = JsonDb.query();
+    $scope.db = DbList.get();
+    $scope.itemList = BinaryDb.query();
     $scope.addNew = function () {
-      var newItem = eval('(' + $scope.newItem + ')'); 
+      var newItem = $scope.newItem;
+      console.debug(newItem);
       if (Array.isArray(newItem)) {
         for (var i = 0; i < newItem.length; i++) {
           JsonDb.add({}, newItem[i], function (response) { 
             $scope.itemList.push(response);
           });
         }
-        $scope.newItem = "";
+        delete $scope.newItem;
       } else {
         JsonDb.add({}, newItem, function (response) { 
           $scope.itemList.push(response);
-          $scope.newItem = "";
+          delete $scope.newItem;
         });
       }
     }
@@ -211,34 +253,73 @@ angular.module('myApp.controllers', [])
         });
       }
     }
+    $scope.onFileSelect = function($files) {
+      for (var i = 0; i < $files.length; i++) {
+        var fd = new FormData();
+        fd.append("file", $files[i]);
+        // additional data can be added to fd as well. This data will be added as meta-info on the file (which can be searched)
+        BinaryDb.add({}, fd, function (response, headers) { 
+          // We need an indirection here as the response has no Json content
+          // Unfortunately we didn't get an id as well, construct it from the location header
+          response.$get({id: headers('location').slice($scope.dbId.length + 1)}, function(resp) {
+            $scope.itemList.push(resp);
+          });
+        }); // TODO: add progress indicator
+      }
+    }
   }])
-  .controller('itemEditCtrl', ['$scope', '$routeParams', 'JsonDb', function($scope, $routeParams, JsonDb) {
+  .controller('itemEditCtrl', ['$scope', '$routeParams', '$location', 'JsonDb', 'DbList', function($scope, $routeParams, $location, JsonDb, DbList) {
   // TODO: figure out a way to edit binary stuff like images or do base64 encoding
     $scope.dbId = $routeParams.dbId;
+    $scope.db = DbList.get();
     $scope.itemId = $routeParams.itemId;
+    $scope.itemStyle = {
+      'background-image': 'url(' + $scope.dbId + '/' + $scope.itemId + ')',
+      'background-size': 'contain',
+      'background-repeat': 'no-repeat',
+      'background-position': 'center'
+    };
     $scope.item = JsonDb.get();
     $scope.save = function () {
       // The item.$save doesn't work because the json directive strips the resource info
-      JsonDb.save($scope.item);
+      JsonDb.save($scope.item, function(succes) {
+        // navigate back
+        $location.path('/edit/' + $scope.dbId);
+      }, function(error) {});
     }
   }]);
   
 angular.module('myApp.services', []).
-  factory('DbList', ['$resource', 
-    function($resource){
-      return $resource(':dbId', {dbId: '@name'}, {
-        query: {method:'GET', url: '?dbList', isArray:true},
-        add: {method:'PUT', params: {dbId: '@name'}}
+  factory('DbList', ['$resource', '$routeParams',
+    function($resource, $routeParams){
+      return $resource('?serviceConfig', {serviceId: function() { return $routeParams.dbId; }}, {
+        query: {method:'GET', isArray:true},
+        add: {method:'POST'},
+        delete: {method:'DELETE', params:{serviceId: '@id'}}
       });
     }]).
   factory('JsonDb', ['$resource', '$routeParams',
     function($resource, $routeParams){
       return $resource(':dbId/:itemId', {dbId: function() { return $routeParams.dbId; }, itemId: '@id'}, {
-        query: {method:'GET', isArray:true},
+        query: {method:'GET', url: ':dbId', isArray:true},
         get: {method:'GET', params:{itemId: function() { return $routeParams.itemId; }}},
-        add: {method:'PUT'},
-        save:{method:'PATCH'}
+        add: {method:'POST', url: ':dbId'},
+        save:{method:'PUT'}
       });
+    }]).
+  factory('BinaryDb', ['$resource', '$routeParams',
+    function($resource, $routeParams){
+      var res = $resource(':dbId', {dbId: function() { return $routeParams.dbId; }, id: '@id'}, {
+        query: {method:'GET', isArray:true},
+        get: {method:'GET', params:{id: function() { return $routeParams.itemId; }}, transformResponse: function(data, headers) {
+          var last = data.length - 1;
+          return angular.fromJson(data.substring(1, last));
+        }},
+        add: {method:'POST', headers: {'Content-Type': undefined }, transformRequest: angular.identity},
+        save:{method:'PUT'},
+        delete: {method:'DELETE', url: ':dbId/:id'}
+      });
+      return res;
     }]);
 
 angular.module('myApp.directives', []).
@@ -262,7 +343,7 @@ angular.module('myApp.directives', []).
         function fromUser(text) {
           // Beware: trim() is not available in old browsers
           if (!text || text.trim() === '')
-            return {}
+            return null;
           else
             // TODO catch SyntaxError, and set validation error..
             return angular.fromJson(text);

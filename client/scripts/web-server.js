@@ -143,7 +143,9 @@ StaticServlet.prototype.handleGetRequest = function(req, res) {
       util.puts('Category: ' + req.url.query.category);
       path = path + '-category-' + req.url.query.category;
     }
-    path = path + '.json';
+    if (path.indexOf('/works/') <= -1) {
+      path = path + '.json';
+    }
     util.puts('Mapped path: ' + path);
   }
   

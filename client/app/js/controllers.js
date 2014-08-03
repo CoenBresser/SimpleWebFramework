@@ -9,8 +9,15 @@ if (typeof String.prototype.startsWith != 'function') {
 }
 
 /* Admin controllers */
-
 angular.module('myApp.controllers', []).
+  controller('configurationController', ['$scope', '$location', '$http',
+    function($scope, $location, $http) {
+      $scope.login = function() {
+        $scope.user = true;
+        /*hue test:
+        $http.put('http://192.168.50.102/api/newdeveloper/groups/0/action', { on: true });*/
+      };
+    }]).
   controller('loginController', ['$scope', '$location',
     function($scope, $location) {
       $scope.handleClick = function() {
@@ -52,7 +59,7 @@ angular.module('myApp.controllers', []).
   controller('MainController', ['$scope', 'Section', '$routeParams', 
     function($scope, Section, $routeParams) {
       var sectionId = ($routeParams.galleryId) ? 'gallery' : $routeParams.sectionId;
-      //console.debug(sectionId);
+      console.debug(sectionId);
       $scope.section = Section.get({sectionId: sectionId});
     }]).
     
@@ -61,7 +68,7 @@ angular.module('myApp.controllers', []).
     function($scope, Article, $routeParams) {
       // Get the articles to build up the gallery
       var sectionId = ($routeParams.galleryId) ? 'gallery' : $routeParams.sectionId;
-      //console.debug(sectionId);
+      console.debug(sectionId);
       $scope.articles = Article.query({sectionId: sectionId});
     }]).
     
@@ -69,7 +76,7 @@ angular.module('myApp.controllers', []).
     function($scope, $location, $window) {
       // We're in an article now ($scope.article is available)
       if (!$scope.article.partialUrl) {
-        $scope.article.partialUrl = "partials/basicArticle.html"
+        $scope.article.partialUrl = "partials/basicArticle.html";
       }
       $scope.handleClick = function() {
         if ($scope.article.link) {
@@ -79,9 +86,13 @@ angular.module('myApp.controllers', []).
             $location.path($scope.article.link);
           }
         } else {
-          //console.debug('No action defined for article ' + $scope.article.id);
+          console.debug('No action defined for article ' + $scope.article.id);
         }
       };
+      if ($scope.article.link) {
+        // Add the style
+        $scope.article.style.cursor = "pointer";
+      }
     }]).
 
   controller('feedbackFormController', ['$scope', '$http',
@@ -89,7 +100,7 @@ angular.module('myApp.controllers', []).
       $scope.submitted = false;
       
       $scope.submit = function () {
-        //console.debug($scope.fdata);
+        console.debug($scope.fdata);
         $http.post('services/feedback.php', $scope.fdata)
           .success(function(){
             // TODO: Check for response (errors are responded as errors by the service)
@@ -101,11 +112,8 @@ angular.module('myApp.controllers', []).
   controller('GalleryController', ['$scope', 'Works', '$routeParams', '$timeout', 
     function($scope, Works, $routeParams, $timeout) {
       
-      // Get the works, check for magic word 'all'
-      var queryParams = {workGroup: $routeParams.sectionId};
-      if ($routeParams.galleryId != 'all') {
-        queryParams.category = $routeParams.galleryId;
-      }
+      // Get the works, category all is used to get all images
+      var queryParams = {workGroup: $routeParams.sectionId, category: $routeParams.galleryId};
       $scope.works = Works.query(queryParams);
       
       // initial image index
