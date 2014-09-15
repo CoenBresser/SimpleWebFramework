@@ -18,4 +18,5 @@ angular.module('myApp.services', ['ngResource']).
       return $resource('data/v2.0/:workGroup/:workId', {}, {
         query: {method:'GET', isArray:true}
       });
-    }]);
+    }]).
+  value('currentUser', {id: null});

@@ -23,7 +23,8 @@ function main(argv) {
   new HttpServer({
     'GET': createServlet(StaticServlet),
     'HEAD': createServlet(StaticServlet),
-    'POST': createServlet(StaticServlet)
+    'POST': createServlet(StaticServlet),
+    'DELETE': createServlet(StaticServlet)
   }).start(Number(argv[2]) || DEFAULT_PORT);
 }
 
@@ -103,6 +104,8 @@ StaticServlet.prototype.handleRequest = function(req, res) {
     this.handleGetRequest(req, res);
   } else if (req.method === 'POST') {
     this.handlePostRequest(req, res);
+  } else if (req.method === 'DELETE') {
+    this.handleDeleteRequest(req, res);
   } else {
     res.writeHead(501);
     res.end();
@@ -134,6 +137,18 @@ StaticServlet.prototype.handleGetRequest = function(req, res) {
   
   if (path.startsWith('./app/data/v2.')) {
     util.puts('In v2.x data directory, do a mapping.');
+    // Simple check, sections will be the first to get the data from
+    if (path.endsWith('sections')) {
+      // Very basic authentication, check if username is not test_deny
+      if (!req.headers.authorization || (req.headers.authorization.split('"')[1] == 'test_deny')) {
+        res.writeHead(401, "Unauthorized", {'WWW-Authenticate': 'Digest realm="Protected Area",qop="auth",nonce="53e34f1638dde",opaque="2929b8e007e9c3edd69d915068815d71"'});
+        res.end();
+      } 
+      // This is how the server let's the (my) application know which user is loggedin
+      res.setHeader('Userid', req.headers.authorization.split('"')[1]);
+      util.puts('user detected: ' + req.headers.authorization.split('"')[1]);
+    }
+    
     // The mapping is easy, add .json at the end unless filtered, then add the id and value
     if (req.url.query.sectionId) {
       util.puts('SectionId: ' + req.url.query.sectionId);
@@ -195,6 +210,11 @@ StaticServlet.prototype.handlePostRequest = function(req, res) {
     }
     res.end();
   });
+}
+StaticServlet.prototype.handleDeleteRequest = function(req, res) {
+  // Just say ok
+  res.writeHead(200);
+  res.end();
 }
 
 StaticServlet.prototype.sendError_ = function(req, res, error) {

@@ -1,5 +1,28 @@
 'use strict';
 
+function arr_delete(item) {
+  for(var i = this.length; i--;) {
+    if(this[i] === item) {
+      this.splice(i, 1);
+    }
+  }
+}
+if (typeof Array.prototype.delete === 'undefined') {
+  Array.prototype.delete = arr_delete;
+}
+function str_starts_with(string) {
+  return this.slice(0, string.length) == string;
+}
+if (typeof String.prototype.startsWith != 'function') {
+  String.prototype.startsWith = str_starts_with;
+}
+function str_ends_with(string) {
+  return this.slice(-string.length) == string;
+}
+if (typeof String.prototype.endsWith != 'function') {
+  String.prototype.endsWith = str_ends_with;
+}
+
 // Extension of the string prototype
 if (typeof String.prototype.startsWith != 'function') {
   // see below for better implementation!
@@ -10,70 +33,159 @@ if (typeof String.prototype.startsWith != 'function') {
 
 /* Admin controllers */
 angular.module('myApp.controllers', []).
-  controller('configurationController', ['$scope', '$location', '$http',
-    function($scope, $location, $http) {
+  controller('configurationController', function($scope, $location, $http, currentUser) {
+      $scope.currentUser = currentUser;
       $scope.login = function() {
-        $scope.user = true;
+        $location.path('admin');
         /*hue test:
         $http.put('http://192.168.50.102/api/newdeveloper/groups/0/action', { on: true });*/
       };
-    }]).
-  controller('loginController', ['$scope', '$location',
-    function($scope, $location) {
-      $scope.handleClick = function() {
-        if (!$scope.user) {
-          $location.path('admin');
-        } else {
-          $location.path('');
-        }
-      };
-    }]).
+    }).
   // admin starting point, get al sections
-  controller('AdminController', ['$scope', 'Section',
-    function($scope, Section) {
+  controller('AdminController', function($scope, Section) {
       // get a user
-      //$scope.sections = Section.query();
-    }]).
+      $scope.sections = Section.query();
+      
+      // Used for linking sections and articles
+      $scope.incomingSectionLinks = new Array();
+    }).
   // admin section content controller
-  controller('AdminSectionController', ['$scope', 'Article',
-    function($scope, Article) {
+  controller('AdminSectionController', function($scope, Article) {
+      
       // We're in a section now ($scope.section is available)
       $scope.articles = Article.query({sectionId: $scope.section.id});
-    }]).
+      
+      $scope.hasIncomingLink = function() {
+        if ($scope.section.id === 'welcome') {
+          // Skip the welcome section as this will always be the start
+          return true;
+        }
+        // TODO: more than 1 article can link to a section
+        return $scope.incomingSectionLinks[$scope.section.id];
+      }
+      
+      $scope.deleteArticle = function(list, item, confirmText) {
+        if (!confirmText || confirm(confirmText)) {
+          item.$delete(function (response) {
+            list.delete(item);
+            if (item.link && !item.link.startsWith('http://')) {
+              var link = (item.link.indexOf('/') > 1) ? 'gallery' : item.link;
+              $scope.incomingSectionLinks[link] = $scope.incomingSectionLinks[link] - 1;
+              
+              if ($scope.incomingSectionLinks[link] == 0) {
+                $scope.incomingSectionLinks.delete(link);
+              }
+            }
+          });
+        }
+      }
+      
+      $scope.deleteSection = function(list, item, confirmText) {
+        if (item.id === 'welcome') {
+          console.warn('Trying to delete first section');
+          return;
+        }
+        if (confirm(confirmText)) {
+          item.$delete(function (response) {
+            angular.forEach($scope.articles, function (article, key) {
+              $scope.deleteArticle($scope.articles, article);
+            });
+            list.delete(item);
+          });
+        }
+      }
+    }).
   // admin article content controller
-  controller('AdminArticleController', ['$scope', 'Section', 'Article', '$routeParams', '$location', '$window', '$element',
-    function($scope, Section, Article, $routeParams, $location, $window, $element) {
+  controller('AdminArticleController', function($scope, Article) {
       // We're in an article now
       if (!$scope.article.partialUrl) {
         $scope.article.partialUrl = "partials/basicArticle.html"
       }
-      
-      $element.html($scope.article.htmlContent);
-      $scope.saveArticle = function() {
-        $scope.article.$save({sectionId:$scope.section.id, articleId: $scope.article.id});
-      };
-    }]).
+      $scope.deriveStyle = function(articleStyle) {
+        return {
+          width: articleStyle.width,
+          height: articleStyle.height,
+          left: articleStyle.left,
+          top: articleStyle.top
+        };
+      }
+      if ($scope.article.link && !$scope.article.link.startsWith('http://')) {
+        // Quick and dirty check on galleries
+        var link = ($scope.article.link.indexOf('/') > 1) ? 'gallery' : $scope.article.link;
+        $scope.incomingSectionLinks[link] = $scope.incomingSectionLinks[link] ? $scope.incomingSectionLinks[link] + 1 : 1;
+      }
+      $scope.resizeOnDrag = function(article, $event) {
+        if (!$scope.followDrag) {
+          // register
+          $scope.followDrag = function(originalStyle, containingSection) {
+            var originalW = originalStyle.width;
+            var originalWu = '';
+            var originalH = originalStyle.height;
+            var originalHu = '';
+            
+            var styleOutput = originalStyle;
+            
+            var startX = $event.x;
+            var startY = $event.y;
+            var maxXWithMargin = +containingSection.style.width.split('px')[0]; // quick and dirty
+            var maxYWithMargin = +containingSection.style.height.split('px')[0];
+            
+            // This method is independent of type of size however...
+            angular.forEach('px % em'.split(' '), function(value) {
+              if ((typeof originalW === 'string') && originalW.endsWith(value)) {
+                originalW = +originalW.slice(0, originalW.length - value.length);
+                originalWu = value;
+              }
+              if ((typeof originalH === 'string') && originalH.endsWith(value)) {
+                originalH = +originalH.slice(0, originalH.length - value.length);
+                originalHu = value;
+              }
+            });
+            
+            // TODO: fix for items that have a left and/or top set as location...
+            function snap(gridsize, margin, value, max) {
+              return Math.min(max, Math.max(gridsize, (gridsize * Math.round(value/gridsize))) - margin);
+            }
+            
+            // This one isn't...
+            function updateSizes(deltaW, deltaH) {
+              styleOutput.width = snap(150, 10, originalW + deltaW, maxXWithMargin - 10) + originalWu;
+              styleOutput.height = snap(150, 10, originalH + deltaH, maxYWithMargin - 10) + originalHu;
+            }
+            
+            return {
+              setMouseLocation: function(x, y) {
+                updateSizes(x - startX, y - startY);
+              }
+            };
+          }(article.style, $scope.section);
+        }
+        if ($event.x === 0 && $event.y === 0) {
+          // unregister
+          delete $scope.followDrag;
+          console.debug('stopped');
+          return;
+        }
+        //$scope.followDrag.setDeltaSizesOnOffset($event.offsetX, $event.offsetY);
+        $scope.followDrag.setMouseLocation($event.x, $event.y);
+      }
+    }).
     
 /* Normal controllers */
   // We've got a section id from ngRoute, go and get the data
-  controller('MainController', ['$scope', 'Section', '$routeParams', 
-    function($scope, Section, $routeParams) {
+  controller('MainController', function($scope, Section, $routeParams) {
       var sectionId = ($routeParams.galleryId) ? 'gallery' : $routeParams.sectionId;
-      console.debug(sectionId);
       $scope.section = Section.get({sectionId: sectionId});
-    }]).
+    }).
     
   // Arrange the contents of the section
-  controller('SectionController', ['$scope', 'Article', '$routeParams',
-    function($scope, Article, $routeParams) {
+  controller('SectionController', function($scope, Article, $routeParams) {
       // Get the articles to build up the gallery
       var sectionId = ($routeParams.galleryId) ? 'gallery' : $routeParams.sectionId;
-      console.debug(sectionId);
       $scope.articles = Article.query({sectionId: sectionId});
-    }]).
+    }).
     
-  controller('ArticleController', ['$scope', '$location', '$window',
-    function($scope, $location, $window) {
+  controller('ArticleController', function($scope, $location, $window) {
       // We're in an article now ($scope.article is available)
       if (!$scope.article.partialUrl) {
         $scope.article.partialUrl = "partials/basicArticle.html";
@@ -93,10 +205,9 @@ angular.module('myApp.controllers', []).
         // Add the style
         $scope.article.style.cursor = "pointer";
       }
-    }]).
+    }).
 
-  controller('feedbackFormController', ['$scope', '$http',
-    function($scope, $http) {
+  controller('feedbackFormController', function($scope, $http) {
       $scope.submitted = false;
       
       $scope.submit = function () {
@@ -107,10 +218,13 @@ angular.module('myApp.controllers', []).
             $scope.submitted = true;
           });
       };
-    }]).
+    }).
 
-  controller('GalleryController', ['$scope', 'Works', '$routeParams', '$timeout', 
-    function($scope, Works, $routeParams, $timeout) {
+  controller('GalleryController', function($scope, Works, $routeParams, $timeout) {
+      if (!$routeParams.galleryId) {
+        console.warn('No gallery id set. Quitting.');
+        return;
+      }
       
       // Get the works, category all is used to get all images
       var queryParams = {workGroup: $routeParams.sectionId, category: $routeParams.galleryId};
@@ -150,4 +264,4 @@ angular.module('myApp.controllers', []).
       }
       $timeout(moveNext, $scope.interval);
       
-    }]);
+    });

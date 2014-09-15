@@ -1,9 +1,23 @@
-<section ng-repeat="section in sections" id="{{section.id}}" style="width: {{section.width}}px; height: {{section.height}}px; " class="admin" ng-controller="AdminSectionController">
-  <article ng-repeat="article in articles" 
-    id="{{article.id}}" 
-    style="width: {{article.width}}px; height: {{article.height}}px; left: {{article.horizontalPos}}px; top: {{article.verticalPos}}px; {{(article.link) ? 'cursor: pointer; ' : ''}}"
-    ng-include="article.partialUrl"
-    ng-style="{{article.style}}"
-    ng-controller="AdminArticleController"></article>
-  <div class="toolBox" />
+<section ng-repeat="section in sections" id="{{section.id}}" class="admin" ng-style="section.style" ng-controller="AdminSectionController" >
+  <div class="articleWrapper" ng-repeat="article in articles" ng-controller="AdminArticleController">
+    <article  
+      id="{{article.id}}" 
+      ng-style="article.style"
+      ng-class="article.class"
+      ng-include="article.partialUrl" >
+    </article>
+    <div class="articleToolbox"
+      ng-style="deriveStyle(article.style)" >
+      <div class="backdrop"></div>
+      <img id="edit" src="img/admin_file_edit.png" title="Edit this article" ></img>
+      <img id="delete" src="img/admin_file_delete.png" ng-click="deleteArticle(articles, article, 'Weet u zeker dat u dit artikel wilt verwijderen?')" title="Delete this article" ></img>
+      <img id="resize" src="img/admin_resize.png" title="Resize the article" my-drag="resizeOnDrag(article, $event)" ></img>
+    </div>
+  </div>
+  <div class="sectionToolBox">
+    <img id="warn" src="img/admin_warning.png" ng-hide="hasIncomingLink()" title="Er is geen verwijzing naar deze sectie" ></img>
+    <img id="delete" ng-hide="$index == 0" src="img/admin_folder_delete.png" title="Delete this section" ng-click="deleteSection(sections, section, 'Weet u zeker dat u deze sectie en artikelen wilt verrwijderen?')" ></img>
+    <!-- add article -->
+  </div>
 </section>
+<!-- add section -->

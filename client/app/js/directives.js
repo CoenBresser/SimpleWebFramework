@@ -57,4 +57,36 @@ angular.module('myApp.directives', []).
               });
           }
       }
+  })
+  .directive('myDrag', function($parse){
+    return {
+      restrict: 'A',
+      compile: function(element, attrs) {
+        var fn = $parse(attrs['myDrag']);
+        return function(scope, element, attrs) { 
+          element.on('drag', function(event) {
+            scope.$apply(function() {
+                fn(scope, {$event:event});
+            });
+          });
+        };
+      }
+    };
   });
+
+  
+  /*function($parse) {
+      return {  
+        restrict: 'A',
+        link: function(scope, element, attr) {
+          var fn = $parse(attr['myDrag']);
+          
+          element.on('drag', function(event) {
+            scope.$apply(function() {
+              fn(scope, {$event:event});
+            });
+          });
+          
+        }
+      };
+    }*/

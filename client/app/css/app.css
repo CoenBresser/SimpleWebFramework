@@ -9,11 +9,14 @@ section>article {
   overflow: hidden;
 }
 
-section>div.toolBox {
+section>div.sectionToolBox {
   position: absolute;
-  right: -50px;
+  right: -55px;
   width: 50px;
   height: 100%;
+}
+section:hover .sectionToolbox {
+  border: 1px solid white;
 }
 
 body {
@@ -134,14 +137,6 @@ section.admin {
   top: 5px;
 }
 
-.loginIndicator.loggedIn>p {
-  display: block !important;
-  text-align: right;
-  margin-right: 25px;
-  margin-top: 5px;
-  float: right;
-}
-
 /* Gallery styles */
 .arrow {
     cursor: pointer;
@@ -215,4 +210,51 @@ section.admin {
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+.articleWrapper article:hover {
+	-webkit-filter: grayscale(80%);
+	-moz-filter: grayscale(80%);
+	-ms-filter: grayscale(80%);
+	-o-filter: grayscale(80%);
+	filter: grayscale(80%);
+	/*filter: url(/assets/svg/grayscale.svg);*/
+	filter: gray;
+}
+
+/* Consider grouping this with the article positioning styling */
+.articleToolbox {
+  position: absolute;
+  opacity: 0;
+  -webkit-transition: opacity 250ms; /* For Safari 3.1 to 6.0 */
+  transition: opacity 250ms;
+}
+.articleToolbox:hover {
+  opacity: 1;
+}
+.articleToolbox>* {
+  position: absolute;
+  opacity: 0.8;
+}
+.articleToolbox .backdrop {
+  background-color: black;
+  width: 100%;
+  height: 100%;
+}
+.articleToolbox img:hover {
+  opacity: 1;
+  -webkit-transition: opacity 250ms; /* For Safari 3.1 to 6.0 */
+  transition: opacity 250ms;
+}
+.articleToolbox #edit {
+  left: 35px;
+  top: 54px;
+}
+.articleToolbox #delete {
+  left: 73px;
+  top: 54px;
+}
+.articleToolbox #resize {
+  right: 0px;
+  bottom: 0px;
 }
