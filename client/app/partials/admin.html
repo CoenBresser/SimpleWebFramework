@@ -8,10 +8,10 @@
     </article>
     <div class="articleToolbox"
       ng-style="deriveStyle(article.style)" >
-      <div class="backdrop"></div>
+      <div class="backdrop" draggable="true" snap-drag="moveOnDrag(article, $event, deltaX, deltaY)" ></div>
       <img id="edit" src="img/admin_file_edit.png" title="Edit this article" ></img>
       <img id="delete" src="img/admin_file_delete.png" ng-click="deleteArticle(articles, article, 'Weet u zeker dat u dit artikel wilt verwijderen?')" title="Delete this article" ></img>
-      <img id="resize" src="img/admin_resize.png" title="Resize the article" my-drag="resizeOnDrag(article, $event)" ></img>
+      <img id="resize" src="img/admin_resize.png" title="Drag me to resize the article" snap-drag="resizeOnDrag(article, $event)" ></img>
     </div>
   </div>
   <div class="sectionToolBox">

@@ -114,60 +114,13 @@ angular.module('myApp.controllers', []).
         var link = ($scope.article.link.indexOf('/') > 1) ? 'gallery' : $scope.article.link;
         $scope.incomingSectionLinks[link] = $scope.incomingSectionLinks[link] ? $scope.incomingSectionLinks[link] + 1 : 1;
       }
+      $scope.moveOnDrag = function(article, $event) {
+        article.style.left = +article.style.left.split('px')[0] + $event.tickX + 'px';
+        article.style.top = +article.style.top.split('px')[0] + $event.tickY + 'px';
+      }
       $scope.resizeOnDrag = function(article, $event) {
-        if (!$scope.followDrag) {
-          // register
-          $scope.followDrag = function(originalStyle, containingSection) {
-            var originalW = originalStyle.width;
-            var originalWu = '';
-            var originalH = originalStyle.height;
-            var originalHu = '';
-            
-            var styleOutput = originalStyle;
-            
-            var startX = $event.x;
-            var startY = $event.y;
-            var maxXWithMargin = +containingSection.style.width.split('px')[0]; // quick and dirty
-            var maxYWithMargin = +containingSection.style.height.split('px')[0];
-            
-            // This method is independent of type of size however...
-            angular.forEach('px % em'.split(' '), function(value) {
-              if ((typeof originalW === 'string') && originalW.endsWith(value)) {
-                originalW = +originalW.slice(0, originalW.length - value.length);
-                originalWu = value;
-              }
-              if ((typeof originalH === 'string') && originalH.endsWith(value)) {
-                originalH = +originalH.slice(0, originalH.length - value.length);
-                originalHu = value;
-              }
-            });
-            
-            // TODO: fix for items that have a left and/or top set as location...
-            function snap(gridsize, margin, value, max) {
-              return Math.min(max, Math.max(gridsize, (gridsize * Math.round(value/gridsize))) - margin);
-            }
-            
-            // This one isn't...
-            function updateSizes(deltaW, deltaH) {
-              styleOutput.width = snap(150, 10, originalW + deltaW, maxXWithMargin - 10) + originalWu;
-              styleOutput.height = snap(150, 10, originalH + deltaH, maxYWithMargin - 10) + originalHu;
-            }
-            
-            return {
-              setMouseLocation: function(x, y) {
-                updateSizes(x - startX, y - startY);
-              }
-            };
-          }(article.style, $scope.section);
-        }
-        if ($event.x === 0 && $event.y === 0) {
-          // unregister
-          delete $scope.followDrag;
-          console.debug('stopped');
-          return;
-        }
-        //$scope.followDrag.setDeltaSizesOnOffset($event.offsetX, $event.offsetY);
-        $scope.followDrag.setMouseLocation($event.x, $event.y);
+        article.style.width = Math.max(140, (+article.style.width.split('px')[0] + $event.tickX)) + 'px';
+        article.style.height = Math.max(140, (+article.style.height.split('px')[0] + $event.tickY)) + 'px';
       }
     }).
     

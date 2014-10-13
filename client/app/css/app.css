@@ -258,3 +258,7 @@ section.admin {
   right: 0px;
   bottom: 0px;
 }
+.articleToolbox #move {
+  right: 0px;
+  bottom: 38px;
+}
