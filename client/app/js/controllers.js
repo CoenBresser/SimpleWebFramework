@@ -10,6 +10,14 @@ function arr_delete(item) {
 if (typeof Array.prototype.delete === 'undefined') {
   Array.prototype.delete = arr_delete;
 }
+function arr_append_if_not_in(item) {
+  if (this.indexOf(item) < 0) {
+    this.push(item);
+  }
+}
+if (typeof Array.prototype.appendIfNotIn === 'undefined') {
+  Array.prototype.appendIfNotIn = arr_append_if_not_in;
+}
 function str_starts_with(string) {
   return this.slice(0, string.length) == string;
 }
@@ -54,6 +62,7 @@ angular.module('myApp.controllers', []).
       
       // We're in a section now ($scope.section is available)
       $scope.articles = Article.query({sectionId: $scope.section.id});
+      $scope.changeList = [];
       
       $scope.hasIncomingLink = function() {
         if ($scope.section.id === 'welcome') {
@@ -94,6 +103,16 @@ angular.module('myApp.controllers', []).
           });
         }
       }
+      $scope.saveChanges = function() {
+        angular.forEach($scope.changeList, function(item, key) {
+          item.$save();
+        });
+      }
+      /* doesn't work $scope.discardChanges = function() {
+        angular.forEach($scope.changeList, function(item, key) {
+          item.$get();
+        });
+      }*/
     }).
   // admin article content controller
   controller('AdminArticleController', function($scope, Article) {
@@ -111,16 +130,19 @@ angular.module('myApp.controllers', []).
       }
       if ($scope.article.link && !$scope.article.link.startsWith('http://')) {
         // Quick and dirty check on galleries
+        // TODO: fix this
         var link = ($scope.article.link.indexOf('/') > 1) ? 'gallery' : $scope.article.link;
         $scope.incomingSectionLinks[link] = $scope.incomingSectionLinks[link] ? $scope.incomingSectionLinks[link] + 1 : 1;
       }
       $scope.moveOnDrag = function(article, $event) {
         article.style.left = +article.style.left.split('px')[0] + $event.tickX + 'px';
         article.style.top = +article.style.top.split('px')[0] + $event.tickY + 'px';
+        $scope.$parent.$parent.changeList.appendIfNotIn(article); // didn't expect the second indirection
       }
       $scope.resizeOnDrag = function(article, $event) {
         article.style.width = Math.max(140, (+article.style.width.split('px')[0] + $event.tickX)) + 'px';
         article.style.height = Math.max(140, (+article.style.height.split('px')[0] + $event.tickY)) + 'px';
+        $scope.$parent.$parent.changeList.appendIfNotIn(article); // didn't expect the second indirection
       }
     }).
     

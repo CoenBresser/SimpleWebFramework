@@ -113,20 +113,3 @@ angular.module('myApp.directives', []).
       }
     };
   });
-
-  
-  /*function($parse) {
-      return {  
-        restrict: 'A',
-        link: function(scope, element, attr) {
-          var fn = $parse(attr['myDrag']);
-          
-          element.on('drag', function(event) {
-            scope.$apply(function() {
-              fn(scope, {$event:event});
-            });
-          });
-          
-        }
-      };
-    }*/

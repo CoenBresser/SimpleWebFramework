@@ -15,8 +15,10 @@
     </div>
   </div>
   <div class="sectionToolBox">
-    <img id="warn" src="img/admin_warning.png" ng-hide="hasIncomingLink()" title="Er is geen verwijzing naar deze sectie" ></img>
+    <img id="warn" src="img/admin_warning.png" ng-hide="hasIncomingLink()" title="There is no reference to this section" ></img>
     <img id="delete" ng-hide="$index == 0" src="img/admin_folder_delete.png" title="Delete this section" ng-click="deleteSection(sections, section, 'Weet u zeker dat u deze sectie en artikelen wilt verrwijderen?')" ></img>
+    <img id="done" ng-show="changeList.length > 0" src="img/admin_done.png" title="Save the changes" ng-click="saveChanges()"/>
+    <!-- img id="cancel" ng-show="changeList.length > 0" src="img/admin_stop.png" title="Discard the changes" ng-click="discardChanges()"/ -->
     <!-- add article -->
   </div>
 </section>
